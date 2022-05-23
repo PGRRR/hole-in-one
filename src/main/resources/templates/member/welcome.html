@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>마이 페이지 | Hole in One</title>
+  <link rel="stylesheet" href="/css/style.css"/>
+</head>
+<body>
+<div class="main">
+  <h3 th:text="'안녕하세요! '+${name}+' 님'">안녕하세요!</h3>
+  <p>골프 예약 서비스 Hole in One 에 오신 것을 환영 합니다.</p>
+  <a href="/members/myAccount">My Account</a>
+  <a href="/">Log Out</a>
+</div>
+</body>
+</html>

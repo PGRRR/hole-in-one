@@ -1,6 +1,7 @@
 package nosleepcoders.holeinone.domain;
 
 import javax.persistence.*;
+
 @Table(name = "member")
 @Entity
 public class Member {
@@ -9,9 +10,23 @@ public class Member {
     private long id;
     @Column(nullable = false)
     private String userId;
+    @Column(nullable = false)
     private String password;
-    private String name;
+    @Column(nullable = false)
     private String email;
+    private String address;
+    private String phoneNumber;
+    @Column(nullable = false)
+    private String name;
+    private String level;
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
 
     public String getUserId() {
         return userId;
@@ -29,6 +44,30 @@ public class Member {
         this.password = password;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
     public String getName() {
         return name;
     }
@@ -37,11 +76,11 @@ public class Member {
         this.name = name;
     }
 
-    public String getEmail() {
-        return email;
+    public String getLevel() {
+        return level;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setLevel(String level) {
+        this.level = level;
     }
 }

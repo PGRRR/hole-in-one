@@ -1,0 +1,56 @@
+package nosleepcoders.holeinone.controller;
+
+import nosleepcoders.holeinone.domain.Member;
+import nosleepcoders.holeinone.repository.MemberRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import javax.servlet.http.HttpSession;
+
+@Controller
+@RequestMapping("/members")
+public class MemberController {
+
+    @Autowired
+    private MemberRepository memberRepository;
+
+    @GetMapping("/signIn")
+    public String signIn() {
+        return "/member/signIn";
+    }
+
+    @PostMapping("/verify")
+    public String verify(String userId, String password, HttpSession session) {
+        Member member = memberRepository.findByUserId(userId);
+        if (member == null) {
+            return "redirect:/members/signIn";
+        }
+        if (!password.equals(member.getPassword())) {
+            return "redirect:/members/signIn";
+        }
+        session.setAttribute("member", member);
+        return "redirect:/";
+    }
+
+    @PostMapping("/welcome")
+    public String member(Member member, Model model) {
+        memberRepository.save(member);
+        model.addAttribute("name", member.getName());
+        return "/member/welcome";
+    }
+
+    @GetMapping("/myAccount")
+    public String update() {
+        return "/member/memberUpdate";
+    }
+
+    @GetMapping("/signUp")
+    public String create() {
+        System.out.println();
+        return "/member/signUp";
+    }
+}

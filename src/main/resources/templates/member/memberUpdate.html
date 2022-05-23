@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>회원 정보 수정 | Hole in One</title>
+    <link rel="stylesheet" href="/css/style.css"/>
+</head>
+<body>
+<div class="main">
+    <h3>안녕하세요!</h3>
+    <p>골프 예약 서비스 Hole in One 에 오신 것을 환영 합니다.</p>
+    <form action="/members/welcome" method="post">
+        <h2>회원 정보 수정</h2>
+        <input type="text" name="userId" placeholder="아이디 입력"/>
+        <input type="password" name="password" placeholder="비밀번호 입력"/>
+        <input type="text" name="email" placeholder="이메일 입력"/>
+        <input type="text" name="name" placeholder="이름 입력"/>
+        <input type="text" name="address" placeholder="주소 입력"/>
+        <input type="text" name="phoneNumber" placeholder="전화 번호 입력"/>
+        <button type="submit">submit</button>
+    </form>
+    <p>홈으로</p>
+    <a href="/">Home</a>
+</div>
+</body>
+</html>
