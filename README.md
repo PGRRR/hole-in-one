@@ -18,7 +18,7 @@
 -  Language : Java
 -  Framework : Spring Boot, Spring JPA
 -  Database : MySQL
-   > Front-end
+> Front-end
 -  Language : HTML5, CSS3, JavaScript
 
 ## 💡 ERD
