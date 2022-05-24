@@ -33,13 +33,13 @@
 
 -  Spring boot 프로젝트를 생성
 -  Github Repository 생성 후 로컬 Git 연동
-   > Mission 2 | 모델링
+> Mission 2 | 모델링
 -  ERD 작성
 -  데이터 베이스 모델 설계
-   > Mission 3 | 회원 가입
+> Mission 3 | 회원 가입
 -  중복 email 이 없도록 구현
 -  조건에 맞는 password 만 허용되게 구현
-   > Mission 4 | 로그인 기능
+> Mission 4 | 로그인 기능
 -  로그인 성공시 session을 통해 로그인 유지
 
 ### 이정연
