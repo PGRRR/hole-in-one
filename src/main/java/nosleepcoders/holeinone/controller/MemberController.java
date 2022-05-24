@@ -24,7 +24,7 @@ public class MemberController {
     }
 
     @PostMapping("/verify")
-    public String verify(String userId, String password, HttpSession session) {
+    public String verify(String userId, String password, HttpSession session, Model model) {
         Member member = memberRepository.findByUserId(userId);
         if (member == null) {
             System.out.println("MEMBER FAIL");
@@ -35,12 +35,14 @@ public class MemberController {
             return "redirect:/members/signIn";
         }
         session.setAttribute("member", member);
+        model.addAttribute("name", userId);
         System.out.println("PASS");
-        return "redirect:/";
+        return "/index";
     }
 
     @PostMapping("/welcome")
     public String member(Member member, Model model) {
+
         memberRepository.save(member);
         model.addAttribute("name", member.getName());
         return "/member/welcome";
@@ -53,7 +55,6 @@ public class MemberController {
 
     @GetMapping("/signUp")
     public String create() {
-        System.out.println();
         return "/member/signUp";
     }
 
