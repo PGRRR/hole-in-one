@@ -27,12 +27,15 @@ public class MemberController {
     public String verify(String userId, String password, HttpSession session) {
         Member member = memberRepository.findByUserId(userId);
         if (member == null) {
+            System.out.println("MEMBER FAIL");
             return "redirect:/members/signIn";
         }
         if (!password.equals(member.getPassword())) {
+            System.out.println("PASSWORD FAIL");
             return "redirect:/members/signIn";
         }
         session.setAttribute("member", member);
+        System.out.println("PASS");
         return "redirect:/";
     }
 
@@ -52,5 +55,11 @@ public class MemberController {
     public String create() {
         System.out.println();
         return "/member/signUp";
+    }
+
+    @GetMapping("/signOut")
+    public String logOut(HttpSession session) {
+        session.removeAttribute("member");
+        return "redirect:/";
     }
 }
