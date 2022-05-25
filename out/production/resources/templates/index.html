@@ -7,16 +7,14 @@
 </head>
 <body>
 <div class="login-box">
-    <div>
-        <div>안녕하세요!</div>
-        <div th:text="${name}+' 님'" th:if="${session.member != null}">유저 이름</div>
-        <div>골프 예약 서비스 Hole in One 에 오신 것을 환영 합니다.</div>
-    </div>
+    <div class="login-title">골프 예약 서비스</div>
+    <div class="nav"></div>
+    <div class="login-text">Hole in One에 오신 것을 환영합니다.</div>
     <div class="member">
-        <a th:if="${session.member == null}" href="/members/signUp">회원 가입</a>
-        <a th:if="${session.member == null}" href="/members/signIn">로그인</a>
-        <a th:if="${session.member != null}" href="/members/signOut">로그아웃</a>
+        <button th:if="${session.member == null}" class="btn-submit" onclick="location.href='/members/signIn'" type="button">로그인 또는 회원 가입</button>
+        <button th:if="${session.member != null}" class="btn-home" onclick="location.href='/members/signOut'" type="button">로그아웃</button>
     </div>
 </div>
+<script src="/js/app.js"></script>
 </body>
 </html>

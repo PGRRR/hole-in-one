@@ -1,23 +1,44 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="UTF-8">
-  <title>로그인 | Hole in One</title>
-  <link rel="stylesheet" href="/css/style.css"/>
+    <meta charset="UTF-8">
+    <title>로그인 또는 회원 가입 | Hole in One</title>
+    <link rel="stylesheet" href="/css/style.css"/>
 </head>
 <body>
 <div class="login-box">
-  <h3>안녕하세요!</h3>
-  <p>골프 예약 서비스 Hole in One 에 오신 것을 환영 합니다.</p>
-  <form action="/members/verify" method="post">
-    <h2>Sign In</h2>
-    <input type="text" name="email" placeholder="이메일"/>
-    <input type="password" name="password" placeholder="비밀번호"/>
-    <button type="submit">submit</button>
-  </form>
-  <div>아직 회원이 아니신가요?</div>
-  <a href="/members/signUp">회원 가입</a>
-  <button class="btn-home" onclick="location.href='/'" type="button">홈으로 돌아가기</button>
+    <div th:if="${email == null}" class="guest-box">
+        <div class="login-title">로그인 또는 회원 가입</div>
+        <div class="nav"></div>
+        <div class="login-text">Hole in One에 오신 것을 환영합니다.</div>
+        <form class="email-form" action="/members/email" method="post">
+            <div class="input-text-group">
+                <input hidden="hidden"/>
+                <input class="input-text" type="text" name="email" placeholder="이메일"/>
+                <div class="message">⚠️ 이메일이 필요합니다.</div>
+            </div>
+            <button class="btn-submit" id="email-btn" type="button" onclick="emailCheck();">계속</button>
+        </form>
+    </div>
+    <div th:if="${email != null}" class="user-box">
+        <div class="login-title">로그인</div>
+        <div class="nav"></div>
+        <div class="login-text">Hole in One에 오신 것을 환영합니다.</div>
+        <form class="email-form" action="/members/verify" method="post">
+            <div class="input-text-group">
+                <input hidden="hidden"/>
+                <input class="input-text" type="text" name="email" placeholder="이메일" th:value="${email}"/>
+                <div class="message">⚠️ 이메일이 필요합니다.</div>
+                <input hidden="hidden"/>
+                <input class="input-text" type="password" name="password" placeholder="비밀번호"/>
+                <div class="message">⚠️ 비밀번호를 입력해 주세요.</div>
+                <input class="verify-message" th:value="${verify}" hidden="hidden">
+            </div>
+            <button class="btn-submit" type="button" onclick="passwordCheck();">로그인</button>
+        </form>
+    </div>
+    <button class="btn-home" onclick="location.href='/'" type="button">홈으로 돌아가기</button>
 </div>
+<script src="/js/app.js"></script>
 </body>
 </html>

@@ -23,26 +23,48 @@ public class MemberController {
         return "/member/signIn";
     }
 
-    @PostMapping("/verify")
-    public String verify(String userId, String password, HttpSession session, Model model) {
-        Member member = memberRepository.findByUserId(userId);
+    @PostMapping("/email")
+    public String emailVerify(String email, Model model) {
+        Member member = memberRepository.findByEmail(email);
         if (member == null) {
-            System.out.println("MEMBER FAIL");
-            return "redirect:/members/signIn";
+            System.out.println("EMAIL FAIL");
+            model.addAttribute("email", email);
+            return "/member/signUp";
+        }
+        System.out.println("EMAIL PASS");
+        model.addAttribute("email", email);
+        model.addAttribute("verify", "pass");
+        return "/member/signIn";
+    }
+
+    @PostMapping("/verify")
+    public String verify(String email, String password, HttpSession session, Model model) {
+        Member member = memberRepository.findByEmail(email);
+        if (member == null) {
+            System.out.println("EMAIL FAIL");
+            model.addAttribute("email", email);
+            return "/member/signUp";
         }
         if (!password.equals(member.getPassword())) {
             System.out.println("PASSWORD FAIL");
-            return "redirect:/members/signIn";
+            model.addAttribute("email", email);
+            model.addAttribute("verify", "fail");
+            return "/member/signIn";
         }
         session.setAttribute("member", member);
-        model.addAttribute("name", userId);
-        System.out.println("PASS");
+        System.out.println("ALL PASS");
         return "/index";
     }
 
     @PostMapping("/welcome")
     public String member(Member member, Model model) {
 
+        if (memberRepository.findByEmail(member.getEmail()) != null) {
+            System.out.println("OVERLAP EMAIL FAIL");
+            model.addAttribute("email", member.getEmail());
+            return "/member/signUp";
+        }
+        System.out.println("SAVE MEMBER");
         memberRepository.save(member);
         model.addAttribute("name", member.getName());
         return "/member/welcome";
