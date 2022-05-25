@@ -2,7 +2,7 @@
 
 골프 예약 서비스 백엔드 프로젝트입니다. 예약 서비스의 필수 기능들을 구현했습니다.
 
-## 개요 📋
+## 📋 개요
 
 > 프로젝트 명 : 골프장 예약 서비스 (Hole in one)
 
@@ -10,6 +10,10 @@
 
 -  개발 기간 : 2022/05/20 ~ 2022/06/17 (4주간)
 -  개발 인원 : Front-end & Back-end 3명
+
+## 🖼 데모 영상
+### 회원 가입 화면 구현 🔗
+[![회원 가입 화면 구현](https://img.youtube.com/vi/p8PxuPWVBYk/0.jpg)](https://www.youtube.com/watch?v=p8PxuPWVBYk)
 
 ### 🛠️ 기술 스택
 
