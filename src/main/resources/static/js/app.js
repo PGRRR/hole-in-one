@@ -1,10 +1,6 @@
 let inputText = document.querySelectorAll(".input-text");
 let warningMessage = document.querySelectorAll(".message");
 
-if (document.querySelector(".verify-message").value == "fail") {
-   alert("이메일 혹은 비밀번호가 틀렸습니다.");
-}
-
 function emailCheck() {
    if (
       inputText[0].value == "" ||
