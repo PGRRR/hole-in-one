@@ -16,7 +16,8 @@ public class Member {
     private String phoneNumber;
     @Column(nullable = false)
     private String name;
-    private String level;
+    @Column(name="level")
+    private String level = "0";
 
     public long getId() {
         return id;
