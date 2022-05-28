@@ -1,5 +1,6 @@
 # ⛳ Hole in one 프로젝트
 
+
 골프 예약 서비스 백엔드 프로젝트입니다. 예약 서비스의 필수 기능들을 구현했습니다.
 
 ## 📋 개요
@@ -32,6 +33,7 @@
 ## 📝 구현 기능 명세
 
 ### 이선우
+[![wakatime](https://wakatime.com/badge/user/9b088db3-8ede-4dad-9a4b-63489f41376c/project/33908599-1a53-42f5-98c7-8b4554ee8337.svg)](https://wakatime.com/badge/user/9b088db3-8ede-4dad-9a4b-63489f41376c/project/33908599-1a53-42f5-98c7-8b4554ee8337)
 
 > Mission 1 | 프로젝트 초기 세팅
 
