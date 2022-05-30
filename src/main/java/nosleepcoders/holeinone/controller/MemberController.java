@@ -62,6 +62,7 @@ public class MemberController {
         if (memberRepository.findByEmail(member.getEmail()) != null) {
             System.out.println("OVERLAP EMAIL FAIL");
             model.addAttribute("email", member.getEmail());
+            model.addAttribute("verify", "fail");
             return "/member/signUp";
         }
         System.out.println("SAVE MEMBER");
