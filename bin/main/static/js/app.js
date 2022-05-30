@@ -2,10 +2,6 @@ let inputText = document.querySelectorAll(".input-text");
 let warningMessage = document.querySelectorAll(".message");
 let submitBtn = document.querySelector(".btn-submit");
 
-submitBtn.addEventListener("Click", function (e) {
-   this.setAttribute("disabled", "true");
-});
-
 function emailCheck() {
    if (
       inputText[0].value == "" ||
@@ -15,6 +11,7 @@ function emailCheck() {
       warningMessage[0].style.visibility = "visible";
       inputText[0].style.borderColor = "red";
    } else {
+      submitBtn.setAttribute("disabled", "true");
       document.querySelector(".email-form").submit();
    }
 }
@@ -40,6 +37,7 @@ function passwordCheck() {
       warningMessage[1].style.visibility = "visible";
       inputText[1].style.borderColor = "red";
    } else {
+      submitBtn.setAttribute("disabled", "true");
       document.querySelector(".email-form").submit();
    }
 }
@@ -61,6 +59,7 @@ function nameCheck() {
       warningMessage[1].style.visibility = "visible";
       inputText[1].style.borderColor = "red";
    } else {
+      submitBtn.setAttribute("disabled", "true");
       document.querySelector(".email-form").submit();
    }
 }
