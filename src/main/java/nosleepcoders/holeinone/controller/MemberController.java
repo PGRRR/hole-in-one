@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpSession;
@@ -18,12 +19,7 @@ public class MemberController {
     @Autowired
     private MemberRepository memberRepository;
 
-    @GetMapping("/signIn")
-    public String signIn() {
-        return "/member/signIn";
-    }
-
-    @PostMapping("/email")
+    @PostMapping("")
     public String emailVerify(String email, Model model) {
         Member member = memberRepository.findByEmail(email);
         if (member == null) {
@@ -37,7 +33,12 @@ public class MemberController {
         return "/member/signIn";
     }
 
-    @PostMapping("/verify")
+    @GetMapping("/signIn")
+    public String signIn() {
+        return "/member/signIn";
+    }
+
+    @PostMapping("/signIn")
     public String verify(String email, String password, HttpSession session, Model model) {
         Member member = memberRepository.findByEmail(email);
         if (member == null) {
@@ -53,10 +54,15 @@ public class MemberController {
         }
         session.setAttribute("member", member);
         System.out.println("ALL PASS");
-        return "/index";
+        return "redirect:/";
     }
 
-    @PostMapping("/welcome")
+    @GetMapping("/signUp")
+    public String create() {
+        return "/member/signUp";
+    }
+
+    @PostMapping("/signUp")
     public String member(Member member, Model model) {
 
         if (memberRepository.findByEmail(member.getEmail()) != null) {
@@ -67,18 +73,19 @@ public class MemberController {
         }
         System.out.println("SAVE MEMBER");
         memberRepository.save(member);
-        model.addAttribute("name", member.getName());
-        return "/member/welcome";
+        return "redirect:/";
     }
 
-    @GetMapping("/myAccount")
-    public String update() {
+    @GetMapping("/{id}/profile")
+    public String myAccount(Model model) {
+        model.addAttribute("update", "fail");
         return "/member/memberUpdate";
     }
 
-    @GetMapping("/signUp")
-    public String create() {
-        return "/member/signUp";
+    @PostMapping("/{id}/profile")
+    public String update(Model model){
+        model.addAttribute("update", "pass");
+        return "/member/memberUpdate";
     }
 
     @GetMapping("/signOut")
