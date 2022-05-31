@@ -13,6 +13,7 @@
     <div th:if="${session.member == null}">
         <form class="email-form" action="/members/welcome" method="post">
             <div class="input-text-group">
+                <div th:if="${verify == 'fail'}"class="verify-message">⚠️ 이미 가입된 회원입니다.</div>
                 <input hidden="hidden"/>
                 <input class="input-text" type="text" th:value="${email}" disabled/>
                 <input type="text" name="email" th:value="${email}" hidden="hidden"/>
