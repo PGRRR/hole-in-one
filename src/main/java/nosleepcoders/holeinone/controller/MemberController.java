@@ -5,10 +5,7 @@ import nosleepcoders.holeinone.repository.MemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 
@@ -77,13 +74,29 @@ public class MemberController {
     }
 
     @GetMapping("/{id}/profile")
-    public String myAccount(Model model) {
+    public String myAccount(@PathVariable Long id, HttpSession session, Model model) {
+        Object tmpMember = session.getAttribute("member");
+        if (tmpMember == null) {
+            return "redirect:/";
+        }
+        Member sessionMember = (Member)tmpMember;
+        if (!id.equals(sessionMember.getId())) {
+            throw new IllegalStateException("잘못된 접근입니다.");
+        }
         model.addAttribute("update", "fail");
         return "/member/memberUpdate";
     }
 
     @PostMapping("/{id}/profile")
-    public String update(Model model){
+    public String update(@PathVariable Long id, Member updateMember, HttpSession session, Model model){
+        Object tmpMember = session.getAttribute("member");
+        if (tmpMember == null) {
+            return "redirect:/";
+        }
+        Member sessionMember = (Member)tmpMember;
+        if (!id.equals(sessionMember.getId())) {
+            throw new IllegalStateException("잘못된 접근입니다.");
+        }
         model.addAttribute("update", "pass");
         return "/member/memberUpdate";
     }
