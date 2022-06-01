@@ -74,4 +74,9 @@ public class Member {
     public void setLevel(String level) {
         this.level = level;
     }
+
+    public void update(Member updateMember) {
+        this.address = updateMember.address;
+        this.phoneNumber = updateMember.phoneNumber;
+    }
 }

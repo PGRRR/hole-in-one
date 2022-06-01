@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/members")
@@ -83,6 +84,8 @@ public class MemberController {
         if (!id.equals(sessionMember.getId())) {
             throw new IllegalStateException("잘못된 접근입니다.");
         }
+        Member member = memberRepository.findByEmail(sessionMember.getEmail());
+        model.addAttribute("member", member);
         model.addAttribute("update", "fail");
         return "/member/memberUpdate";
     }
@@ -97,6 +100,10 @@ public class MemberController {
         if (!id.equals(sessionMember.getId())) {
             throw new IllegalStateException("잘못된 접근입니다.");
         }
+        Member member = memberRepository.findByEmail(updateMember.getEmail());
+        member.update(updateMember);
+        memberRepository.save(member);
+        System.out.println("UPDATE MEMBER");
         model.addAttribute("update", "pass");
         return "/member/memberUpdate";
     }

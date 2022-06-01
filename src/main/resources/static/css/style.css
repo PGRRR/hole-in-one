@@ -1,6 +1,7 @@
 @font-face {
-   font-family: 'GmarketSansMedium';
-   src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff') format('woff');
+   font-family: "GmarketSansMedium";
+   src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff")
+      format("woff");
    font-weight: normal;
    font-style: normal;
 }
@@ -9,7 +10,7 @@ a {
    color: #222222;
 }
 .snack-bar {
-   font-family: 'GmarketSansMedium';
+   font-family: "GmarketSansMedium";
    animation: 3s ease 0s normal forwards 1 fadeout;
    display: flex;
    justify-content: center;
@@ -26,18 +27,24 @@ a {
    border-bottom-left-radius: 10px;
    border-bottom-right-radius: 10px;
 }
-@keyframes fadeout{
-   0% { opacity:1; }
-   66% { opacity:1; }
-   100% { opacity:0; }
+@keyframes fadeout {
+   0% {
+      opacity: 1;
+   }
+   66% {
+      opacity: 1;
+   }
+   100% {
+      opacity: 0;
+   }
 }
 body {
-   font-family: 'GmarketSansMedium';
-   background-color: #F1F0EC;
+   font-family: "GmarketSansMedium";
+   background-color: #f1f0ec;
    width: 625px;
    height: 500px;
-   display:grid;
-   align-items:center;
+   display: grid;
+   align-items: center;
    margin: auto;
    /* background: url("https://images.unsplash.com/photo-1500932334442-8761ee4810a7?crop=entropy&cs=tinysrgb&fm=jpg&ixlib=rb-1.2.1&q=80&raw_url=true&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170"); */
    /* background: linear-gradient(45deg, Violet, Orange); */
@@ -81,7 +88,7 @@ body {
 }
 
 .input-text {
-   font-family: 'GmarketSansMedium';
+   font-family: "GmarketSansMedium";
    width: 520px;
    height: 52px;
    color: #555;
@@ -94,7 +101,7 @@ body {
 }
 
 .btn-submit {
-   font-family: 'GmarketSansMedium';
+   font-family: "GmarketSansMedium";
    cursor: pointer;
    width: 520px;
    height: 48px;
@@ -109,7 +116,7 @@ body {
 }
 
 .btn-home {
-   font-family: 'GmarketSansMedium';
+   font-family: "GmarketSansMedium";
    cursor: pointer;
    width: 520px;
    height: 48px;
@@ -123,20 +130,20 @@ body {
 }
 
 #kakao {
-   font-family: 'GmarketSansMedium';
+   font-family: "GmarketSansMedium";
    cursor: pointer;
    width: 520px;
    height: 48px;
    border-radius: 10px;
    border: none;
-   background-color: #FEE500;
+   background-color: #fee500;
    color: #000000;
    font-size: 16px;
    font-weight: 400;
    margin-top: 10px;
    margin-bottom: 10px;
 }
-.inner-kakao{
+.inner-kakao {
    display: flex;
    justify-content: center;
    align-items: center;
@@ -154,7 +161,7 @@ body {
 }
 
 .message {
-   font-family: 'GmarketSansMedium';
+   font-family: "GmarketSansMedium";
    font-size: 12px;
    color: red;
    margin-bottom: 10px;
@@ -162,7 +169,7 @@ body {
    visibility: hidden;
 }
 .verify-message {
-   font-family: 'GmarketSansMedium';
+   font-family: "GmarketSansMedium";
    font-size: 12px;
    color: red;
    margin-bottom: 10px;
