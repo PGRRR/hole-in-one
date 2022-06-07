@@ -1,0 +1,161 @@
+* {
+    font-family: "나눔스퀘어OTF_ac";
+
+}
+
+.header {
+    background-image: url(../img/header.jpg);
+    background-repeat: no-repeat;
+    width: 100%; height: 1500px;
+
+}
+
+/* -------------  로고  ------------------*/
+.navbar .logo {
+    float: left;
+}
+
+/* -------------  네비게이션  ------------------*/
+.navbar {
+    background-image: url(../img/nav.png);
+    background-repeat: no-repeat;
+    width: 100%;
+    height: 150px;
+    float: left;
+}
+
+.nav_text {
+    width: 1240px;
+    margin: 0 auto;
+    color: white;
+    font-family: "나눔스퀘어OTF_ac";
+    align-items : center;
+    margin-top: 15px;
+}
+
+.navbar .logo {
+    float: left;
+}
+
+.navbar .logo img {
+    width: 90%;
+}
+
+.navbar ul {
+    float: left;
+    margin-left: 140px;
+}
+
+.navbar ul li {
+    list-style: none;
+    margin-top: 8px;
+
+}
+
+.navbar ul li a {
+    font-size: 18px;
+    list-style: none;
+    color: white;
+    text-decoration: none;
+    margin-right: 50px;
+
+}
+
+/* -------------  로그인, 회원가입 버튼  ------------------*/
+.nav_text .login {
+    float: right;
+    font-size: 14px;
+    margin-top: 12px;
+    color: rgba(255, 255, 255, 0.541);
+}
+
+.nav_text .login a {
+    color: rgba(255, 255, 255, 0.541);
+    text-decoration: none;
+    text-decoration-line: none;
+}
+
+/* -------------- 메인 글씨 ---------------------- */
+.header_text {
+    margin: 0 auto;
+    font-family: "나눔스퀘어OTF_ac";
+    width: 1240px;
+    text-align: center;
+}
+
+/* -------------- 메인 큰 로고, 설명 -------------------- */
+.header_text h1 {
+    text-align: center;
+    margin: 0 auto;
+    width: 100%;
+    margin-bottom: 30px;
+}
+.header_text h1 img {
+    margin-top: 150px;
+}
+
+.header_text p {
+    font-size: 16px;
+    color: rgba(255, 255, 255, 0.795);
+    text-align: center;
+    line-height: 1.5;
+    
+}
+
+/* -------------- 메인 선택 ---------------------- */
+.header_text ul {
+    width: 1240px;
+    margin-top: 40px;
+
+}
+
+.header_text ul li {
+    float: left;
+    margin: 0 auto;
+    width: 1240px;
+
+}
+
+.header_text ul li a { 
+    font-family: "나눔스퀘어OTF_ac";
+    color: white;
+    font-size: 20px;
+    text-decoration-line: none;
+    font-weight: 500;
+    border: 2px solid;
+    padding-top: 7px;
+    padding-left: 3px;
+    padding-right: 3px;
+    border-color: rgba(255, 255, 255, 0.726) transparent transparent transparent ;
+    
+}
+
+.header_text ul li a span {
+    font-size: 15px;
+}
+
+/* -------------- 메인 선택 바로가기 버튼 ---------------------- */
+.header_text button {
+    width: 200px;
+    height: 50px;
+    list-style: none;
+    outline: none;
+    margin-top: 30px;
+    border: 0;
+    background-color: transparent;
+
+}
+
+.header_text button a {
+    font-family: "나눔스퀘어OTF_ac";
+    color: rgba(0, 0, 0, 0.596);
+    font-size: 20px;
+    font-weight: 600;
+    text-decoration-line: none;
+    padding: 15px 50px 15px  50px;
+    background-color: rgba(255, 255, 255, 0.863);
+    border-radius: 30px;
+    box-shadow: 0 0 8px rgba(255, 255, 255, 0.678);
+    
+}
+
