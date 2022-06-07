@@ -19,6 +19,13 @@ public class Member {
     @Column(name="level")
     private String level = "0";
 
+    public Member(String email, String password, String name) {
+        super();
+        this.email = email;
+        this.password = password;
+        this.name = name;
+    }
+
     public long getId() {
         return id;
     }
