@@ -2,7 +2,6 @@ package nosleepcoders.holeinone.service;
 
 import nosleepcoders.holeinone.domain.Board;
 import nosleepcoders.holeinone.repository.BoardRepository;
-import nosleepcoders.holeinone.repository.MemoryBoardRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
