@@ -19,6 +19,7 @@ public class JdbcMemberRepository implements MemberRepository {
 
     private final DataSource dataSource; // DB 와 연결하기 위해서는 DataSource 필요
 
+
     public JdbcMemberRepository(DataSource dataSource) { // DataSource 는 Spring 에서 주입 받아야 한다.
         this.dataSource = dataSource;
     }
@@ -32,6 +33,9 @@ public class JdbcMemberRepository implements MemberRepository {
         Connection conn = null;
         PreparedStatement pstmt = null; // SQL 문을 데이터베이스에 보내기 위한 객체
         ResultSet rs = null; // 결과 값을 받는 객체
+        /**
+         * try-catch-finally close()
+         */
         try {
             conn = getConnection();
             pstmt = conn.prepareStatement(sql, // PreparedStatement 객체 생성, 객체 생성시 SQL 문장 저장
@@ -61,11 +65,11 @@ public class JdbcMemberRepository implements MemberRepository {
     @Override
     public Member update(Member member) {
         String sql = "update member set address = ?, phoneNumber = ? where id = ?  "; // 쿼리문
-        Connection conn = null;
-        PreparedStatement pstmt = null; // SQL 문을 데이터베이스에 보내기 위한 객체
-        try {
-            conn = getConnection();
-            pstmt = conn.prepareStatement(sql);
+        /**
+         * try-with-resources
+         */
+        try (Connection conn = getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setString(1, member.getAddress());
             pstmt.setString(2, member.getPhoneNumber());
             pstmt.setLong(3, member.getId());
@@ -73,8 +77,6 @@ public class JdbcMemberRepository implements MemberRepository {
             return member;
         } catch (Exception e) {
             throw new IllegalStateException(e);
-        } finally {
-            close(conn, pstmt); // Connection 사용 후 모든 리소스를 반환해야한다.
         }
     }
 
@@ -84,31 +86,29 @@ public class JdbcMemberRepository implements MemberRepository {
     @Override
     public Optional<Member> findById(Long id) {
         String sql = "select * from member where id = ?";
-        Connection conn = null;
-        PreparedStatement pstmt = null;
-        ResultSet rs = null;
-        try {
-            conn = getConnection();
-            pstmt = conn.prepareStatement(sql);
+        /**
+         * try-with-resources
+         */
+        try (Connection conn = getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setLong(1, id);
-            rs = pstmt.executeQuery();
-            if (rs.next()) { // 값이 있으면 멤버 객체를 생성 후
-                Member member = new Member();
-                member.setId(rs.getLong("id"));
-                member.setEmail(rs.getString("email"));
-                member.setPassword(rs.getString("password"));
-                member.setAddress(rs.getString("address"));
-                member.setPhoneNumber(rs.getString("phoneNumber"));
-                member.setName(rs.getString("name"));
-                member.setLevel(rs.getString("level"));
-                return Optional.of(member); // 멤버 객체 반환
-            } else {
-                return Optional.empty();
+            try (ResultSet rs = pstmt.executeQuery()) { // indent-depth : 2
+                if (rs.next()) { // 값이 있으면 멤버 객체를 생성 후
+                    Member member = new Member();
+                    member.setId(rs.getLong("id"));
+                    member.setEmail(rs.getString("email"));
+                    member.setPassword(rs.getString("password"));
+                    member.setAddress(rs.getString("address"));
+                    member.setPhoneNumber(rs.getString("phoneNumber"));
+                    member.setName(rs.getString("name"));
+                    member.setLevel(rs.getString("level"));
+                    return Optional.of(member); // 멤버 객체 반환
+                } else {
+                    return Optional.empty();
+                }
             }
         } catch (Exception e) {
             throw new IllegalStateException(e);
-        } finally {
-            close(conn, pstmt, rs);
         }
     }
 
@@ -190,22 +190,6 @@ public class JdbcMemberRepository implements MemberRepository {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        try {
-            if (pstmt != null) {
-                pstmt.close();
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        try {
-            if (conn != null) {
-                close(conn);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-    private void close(Connection conn, PreparedStatement pstmt) { // 사용 순서와 반대로 close
         try {
             if (pstmt != null) {
                 pstmt.close();

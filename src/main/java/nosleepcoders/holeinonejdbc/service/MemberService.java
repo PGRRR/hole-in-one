@@ -5,6 +5,7 @@ import nosleepcoders.holeinonejdbc.repository.MemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.servlet.http.HttpSession;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 
@@ -77,7 +78,7 @@ public class MemberService {
     /**
      * 개인 정보 수정
      */
-    public void edit(Member updateMember) {
+    public void edit(Member updateMember){
         Optional<Member> member = memberRepository.findByEmail(updateMember.getEmail());
         memberRepository.update(updateMember);
         System.out.println("UPDATE MEMBER");
