@@ -178,3 +178,6 @@ body {
 .nav {
    border: 0.5px solid rgba(202, 202, 202, 0.5);
 }
+.order-table {
+   text-align: center;
+}

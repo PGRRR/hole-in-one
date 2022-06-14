@@ -1,8 +1,12 @@
 package nosleepcoders.holeinonejdbc;
 
+import nosleepcoders.holeinonejdbc.domain.Order;
 import nosleepcoders.holeinonejdbc.repository.JdbcMemberRepository;
+import nosleepcoders.holeinonejdbc.repository.JdbcOrderRepository;
 import nosleepcoders.holeinonejdbc.repository.MemberRepository;
+import nosleepcoders.holeinonejdbc.repository.OrderRepository;
 import nosleepcoders.holeinonejdbc.service.MemberService;
+import nosleepcoders.holeinonejdbc.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -23,9 +27,16 @@ public class SpringConfig {
     public MemberService memberService() {
         return new MemberService(memberRepository());
     }
+    @Bean
+    public OrderService orderService() {
+        return new OrderService(orderRepository());
+    }
 
     @Bean
     public MemberRepository memberRepository() {
         return new JdbcMemberRepository(dataSource);
     }
+
+    @Bean
+    public OrderRepository orderRepository() { return new JdbcOrderRepository(dataSource); }
 }
