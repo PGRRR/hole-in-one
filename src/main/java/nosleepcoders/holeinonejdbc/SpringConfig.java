@@ -1,6 +1,5 @@
 package nosleepcoders.holeinonejdbc;
 
-import nosleepcoders.holeinonejdbc.domain.Order;
 import nosleepcoders.holeinonejdbc.repository.JdbcMemberRepository;
 import nosleepcoders.holeinonejdbc.repository.JdbcOrderRepository;
 import nosleepcoders.holeinonejdbc.repository.MemberRepository;
@@ -27,10 +26,6 @@ public class SpringConfig {
     public MemberService memberService() {
         return new MemberService(memberRepository());
     }
-    @Bean
-    public OrderService orderService() {
-        return new OrderService(orderRepository());
-    }
 
     @Bean
     public MemberRepository memberRepository() {
@@ -38,5 +33,11 @@ public class SpringConfig {
     }
 
     @Bean
-    public OrderRepository orderRepository() { return new JdbcOrderRepository(dataSource); }
+    public OrderService orderService() {
+        return new OrderService(orderRepository());
+    }
+    @Bean
+    public OrderRepository orderRepository() {
+        return new JdbcOrderRepository(dataSource);
+    }
 }

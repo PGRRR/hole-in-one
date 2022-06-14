@@ -1,27 +1,37 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-  <head>
-    <meta charset="UTF-8" />
-    <title>내 계정 | Hole in One</title>
-    <link rel="stylesheet" href="/css/memberStyle.css" />
-  </head>
-  <body>
-    <div class="login-box">
-      <div class="login-title">내 예약 목록</div>
-      <div class="nav"></div>
-      <div class="login-text">예약 정보</div>
-      <div class="member">
+<head>
+    <meta charset="UTF-8"/>
+    <title>예약 목록 | Hole in One</title>
+    <link rel="stylesheet" href="/css/memberStyle.css"/>
+</head>
+<body>
+<div class="login-box">
+    <div class="login-title">내 예약 목록</div>
+    <div class="nav"></div>
+    <div class="login-text">임시 예약 버튼</div>
+    <form th:action="@{'/orders/'+${session.member.id}+'/store'}" method="get">
+        <input class="btn-submit" type="submit" name="golfInfo_id" value="1">
+    </form>
+    <form th:action="@{'/orders/'+${session.member.id}+'/store'}" method="get">
+        <input class="btn-submit" type="submit" name="golfInfo_id" value="2">
+    </form>
+    <form th:action="@{'/orders/'+${session.member.id}+'/store'}" method="get">
+        <input class="btn-submit" type="submit" name="golfInfo_id" value="3">
+    </form>
+    <div class="nav"></div>
+    <div class="login-text">예약 정보</div>
+    <div class="member">
         <div th:each="order:${orderNumbers}">
-        <div th:each="store:${stores}">
-            <div th:text="${store.golfName}" class="login-text">예약 매장 1</div>
-            <a th:href="@{'/orders/'+${order.number}}">
-              <button class="btn-submit" type="button">예약 취소</button>
-            </a>
+            <div th:text="${order.golfInfo_id}" class="login-text">예약 매장</div>
+                <a th:href="@{'/orders/'+${session.member.id}+'/'+${order.number}}">
+                    <button class="btn-submit" type="button">예약 취소</button>
+                </a>
         </div>
-        </div>
+
         <button class="btn-home" onclick="location.href='/'" type="button">홈으로 돌아가기</button>
-      </div>
     </div>
-    <script src="/js/app.js"></script>
-  </body>
+</div>
+<script src="/js/app.js"></script>
+</body>
 </html>

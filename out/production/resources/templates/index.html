@@ -11,9 +11,9 @@
     <div class="nav"></div>
     <div class="login-text">Hole in One에 오신 것을 환영합니다.</div>
     <div class="member">
-        <button class="btn-submit" onclick="location.href='/boards'"
-                type="button">게시판
-        </button>
+        <a th:if="${session.member != null}" th:href="@{'/orders/'+${session.member.id}}">
+            <button class="btn-submit" type="button">내 예약 목록</button>
+        </a>
         <a th:if="${session.member != null}" th:href="@{'/members/'+${session.member.id}+'/profile'}">
             <button class="btn-submit" type="button">내 계정</button>
         </a>

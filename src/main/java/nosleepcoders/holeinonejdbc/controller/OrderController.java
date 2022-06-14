@@ -31,20 +31,25 @@ public class OrderController {
     @GetMapping("/{id}")
     public String list(@PathVariable Long id, HttpSession session, Model model) {
         try {
-            Optional<Member> member = memberService.access(id, session);
-            List<GolfInfo> stores = orderService.findOrderStore(id);
+            memberService.access(id, session);
             List<Order> orderNumbers = orderService.findOrderNumber(id);
-            model.addAttribute("stores", stores);
             model.addAttribute("orderNumbers", orderNumbers);
             return "/order/list";
-        } catch (IllegalStateException e) {
+        } catch (Exception e) {
             return "redirect:/";
         }
+    }
+
+    @GetMapping("/{id}/store")
+    public String reg(@PathVariable Long id, String golfInfo_id,HttpSession session) {
+        memberService.access(id, session);
+        orderService.reservation(Long.parseLong(golfInfo_id), id);
+        return "redirect:/orders/{id}";
     }
 
     @GetMapping("/{id}/{number}")
     public String cancel(@PathVariable String number) {
         orderService.cancel(number);
-        return "/order/list";
+        return "redirect:/orders/{id}";
     }
 }

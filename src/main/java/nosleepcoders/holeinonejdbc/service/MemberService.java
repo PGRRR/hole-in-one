@@ -3,6 +3,7 @@ package nosleepcoders.holeinonejdbc.service;
 import nosleepcoders.holeinonejdbc.domain.Member;
 import nosleepcoders.holeinonejdbc.repository.MemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.http.HttpSession;
 import java.sql.SQLException;

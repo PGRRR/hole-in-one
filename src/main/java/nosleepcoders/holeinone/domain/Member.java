@@ -6,7 +6,7 @@ import javax.persistence.*;
 @Entity
 public class Member {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     @Column(nullable = false)
     private String email;

@@ -30,20 +30,23 @@ public class JdbcOrderRepository implements OrderRepository {
 
     @Override
     public Order save(Order order) {
-        String sql = "insert into orders(number, total_price, user_id) values (?, ?, ?)";
+        String sql = "insert into orders(number, total_price, member_id, golfInfo_id) values (?, ?, ?, ?)";
         try (Connection conn = getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-             ResultSet rs = pstmt.getGeneratedKeys()) {
+             PreparedStatement pstmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)
+             ) {
             pstmt.setString(1, order.getNumber());
             pstmt.setString(2, order.getTotal_price());
             pstmt.setLong(3, order.getMember_id());
+            pstmt.setLong(4, order.getGolfInfo_id());
             pstmt.executeUpdate();
-            if (rs.next()) {
-                order.setId(rs.getLong(1));
-            } else {
-                throw new SQLException("id 조회 실패");
+            try (ResultSet rs = pstmt.getGeneratedKeys()) {
+                if (rs.next()) {
+                    order.setId(rs.getLong(1));
+                } else {
+                    throw new SQLException("id 조회 실패");
+                }
+                return order;
             }
-            return order;
         } catch (Exception e) {
             throw new IllegalStateException(e);
         }
@@ -51,7 +54,7 @@ public class JdbcOrderRepository implements OrderRepository {
 
     @Override
     public String delete(String number) {
-        String sql = "delete form orders where number = ?";
+        String sql = "delete from orders where number = ?";
         try (Connection conn = getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setString(1, number);
@@ -97,7 +100,7 @@ public class JdbcOrderRepository implements OrderRepository {
                     order.setId(rs.getLong("id"));
                     order.setNumber(rs.getString("number"));
                     order.setTotal_price(rs.getString("total_price"));
-                    order.setMember_id(rs.getLong("user_id"));
+                    order.setMember_id(rs.getLong("member_id"));
                     return Optional.of(order);
                 } else {
                     return Optional.empty();
@@ -118,7 +121,8 @@ public class JdbcOrderRepository implements OrderRepository {
                 List<Order> orders = new ArrayList<>();
                 while (rs.next()) {
                     Order order = new Order();
-                    order.setNumber(rs.getString("Number"));
+                    order.setNumber(rs.getString("number"));
+                    order.setGolfInfo_id(rs.getLong("golfInfo_id"));
                     orders.add(order);
                 }
                 return orders;
