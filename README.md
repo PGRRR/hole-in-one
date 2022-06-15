@@ -27,7 +27,7 @@
 -  Language : HTML5, CSS3, JavaScript
 
 ## 💡 ERD
-![hole-in-one-erd](https://user-images.githubusercontent.com/82517133/171789654-7e0fa70b-b567-4912-a16d-52e5d6a69dc3.png)
+![ERD](https://user-images.githubusercontent.com/82517133/173890368-eaea1a15-7c45-4c65-af7b-31aa91c835b2.png)
 
 ## 📝 구현 기능 명세
 
@@ -41,10 +41,11 @@
 -  ERD 작성
 -  데이터 베이스 모델 설계
 > Mission 3 | 회원 가입
--  중복 email 이 없도록 구현
--  조건에 맞는 password 만 허용되게 구현
+- 중복 email 이 없도록 구현
+- 조건에 맞는 email 형식만 허용되게 구현
 > Mission 4 | 로그인 기능
--  로그인 성공시 session을 통해 로그인 유지
+- 로그인 성공시 session 을 통해 로그인 유지
+- password 검증 구현
 > Mission 5 | 커뮤니티 페이지
 - 글 등록, 수정, 삭제 구현
 - 로그인 유저만 사용 가능하게 구현
