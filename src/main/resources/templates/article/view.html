@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>글 제목 | Hole in One</title>
+    <link rel="stylesheet" href="/css/memberStyle.css"/>
+</head>
+<body>
+<div class="login-box">
+    <div class="login-title">커뮤니티</div>
+    <div class="nav"></div>
+    <div class="member">
+            <div th:text="${article.title}" class="login-text">글 제목</div>
+            <div class="nav"></div>
+            <div th:text="${article.text}" class="article-text">본문</div>
+    </div>
+    <a th:if="${session.member != null}" th:href="@{'/articles/'+${session.member.id}+'/'+${article.id}}">
+        <button class="btn-submit" type="button">글 삭제</button>
+    </a>
+    <button class="btn-home" onclick="location.href='/articles'" type="button">목록으로 돌아가기</button>
+    <button class="btn-home" onclick="location.href='/'" type="button">홈으로 돌아가기</button>
+</div>
+<script src="/js/app.js"></script>
+</body>
+</html>

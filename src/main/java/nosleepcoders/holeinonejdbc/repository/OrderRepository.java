@@ -2,7 +2,6 @@ package nosleepcoders.holeinonejdbc.repository;
 
 import nosleepcoders.holeinonejdbc.domain.GolfInfo;
 import nosleepcoders.holeinonejdbc.domain.Order;
-import org.aspectj.weaver.ast.Or;
 
 import java.util.List;
 import java.util.Optional;

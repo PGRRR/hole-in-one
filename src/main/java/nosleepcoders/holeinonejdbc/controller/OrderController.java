@@ -1,7 +1,5 @@
 package nosleepcoders.holeinonejdbc.controller;
 
-import nosleepcoders.holeinonejdbc.domain.GolfInfo;
-import nosleepcoders.holeinonejdbc.domain.Member;
 import nosleepcoders.holeinonejdbc.domain.Order;
 import nosleepcoders.holeinonejdbc.service.MemberService;
 import nosleepcoders.holeinonejdbc.service.OrderService;
@@ -9,12 +7,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
-import java.util.Optional;
 
 @Controller
 @RequestMapping("/orders")

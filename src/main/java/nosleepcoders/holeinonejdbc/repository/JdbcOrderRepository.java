@@ -77,7 +77,7 @@ public class JdbcOrderRepository implements OrderRepository {
                     order.setId(rs.getLong("id"));
                     order.setNumber(rs.getString("number"));
                     order.setTotal_price(rs.getString("total_price"));
-                    order.setMember_id(rs.getLong("user_id"));
+                    order.setMember_id(rs.getLong("member_id"));
                     return Optional.of(order);
                 } else {
                     return Optional.empty();
