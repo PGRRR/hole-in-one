@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * ArticleRepository 인터페이스의 JDBC 구현체
+ * ArticleRepository 인터페이스의 JDBC 구현체!
  */
 @Repository
 public class JdbcArticleRepository implements ArticleRepository {
