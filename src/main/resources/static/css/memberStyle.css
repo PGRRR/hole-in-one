@@ -41,26 +41,20 @@ a {
 body {
    font-family: "GmarketSansMedium";
    background-color: #f1f0ec;
-   /* width: 625px;
-   height: 500px; */
    display: flex;
+   justify-content: end;
    align-items: center;
-   margin: auto;
-   /* background: url("https://images.unsplash.com/photo-1500932334442-8761ee4810a7?crop=entropy&cs=tinysrgb&fm=jpg&ixlib=rb-1.2.1&q=80&raw_url=true&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170"); */
-   /* background: linear-gradient(45deg, Violet, Orange); */
-   background-position: center center;
-   background-repeat: no-repeat;
-   background-attachment: fixed;
-   background-size: cover;
+   overflow: hidden;
 }
 
 .login-box {
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   flex-direction: column;
    text-align: center;
-   margin: 0 auto;
    width: 600px;
-   height: auto;
-   border: 1px solid #cacaca;
-   border-radius: 10px;
+   height: 100vh;
    background-color: white;
 }
 
@@ -177,7 +171,11 @@ body {
 }
 .nav {
    border: 0.5px solid rgba(202, 202, 202, 0.5);
+   width: 500px;
 }
 .order-table {
    text-align: center;
+}
+.icon {
+   margin-top: 20px;
 }
