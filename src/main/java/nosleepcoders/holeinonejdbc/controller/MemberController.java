@@ -3,21 +3,17 @@ package nosleepcoders.holeinonejdbc.controller;
 import nosleepcoders.holeinonejdbc.domain.Member;
 import nosleepcoders.holeinonejdbc.repository.MemberRepository;
 import nosleepcoders.holeinonejdbc.service.MemberService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import java.util.HashMap;
 import java.util.Optional;
 
 @Controller
 @RequestMapping("/members")
 public class MemberController {
-
 
     private final MemberService memberService;
 
@@ -123,6 +119,19 @@ public class MemberController {
     public String logOut(HttpSession session) {
         session.removeAttribute("member");
         return "redirect:/";
+    }
+
+    @GetMapping("/kakao")
+    public String kakao(@RequestParam(value = "code", required = false) String code) {
+        System.out.println("###" + code);
+        String access_Token = memberService.getAccessToken(code);
+        HashMap<String, Object> userInfo = memberService.getUserInfo(access_Token);
+        System.out.println("###access_Token#### : " + access_Token);
+        System.out.println("###nickname#### : " + userInfo.get("nickname"));
+        System.out.println("###email#### : " + userInfo.get("email"));
+        System.out.println("###age#### : " + userInfo.get("age"));
+        System.out.println("###id#### : " + userInfo.get("id"));
+        return "/index";
     }
 }
 

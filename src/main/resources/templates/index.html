@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <title>골프 예약 서비스 | Hole in One</title>
+    <link rel="icon" href="/img/hole-in-one-1280.png"/>
     <link rel="stylesheet" href="/css/memberStyle.css" />
 </head>
 <body>
@@ -44,7 +45,7 @@
         <a th:if="${session.member == null}" href="/members/signIn">
             <button class="btn-submit" type="button">스크린 골프 예약</button>
         </a>
-        <a th:if="${session.member != null}" href="/main">
+        <a th:if="${session.member != null}" href="/shops">
             <button class="btn-submit" type="button">스크린 골프 예약</button>
         </a>
         <button
@@ -78,7 +79,7 @@
                 th:if="${session.member == null}"
                 id="kakao"
                 class="btn-submit"
-                onclick="location.href='/members/signIn'"
+                onclick="location.href='https://kauth.kakao.com/oauth/authorize?client_id=5859443def9b6affce697eeb663074dc&redirect_uri=http://localhost:3080/members/kakao&response_type=code'"
                 type="button"
         >
                <span class="inner-kakao">
