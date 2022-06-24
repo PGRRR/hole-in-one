@@ -2,6 +2,7 @@ package nosleepcoders.holeinonejdbc.repository;
 
 import nosleepcoders.holeinonejdbc.domain.Article;
 import nosleepcoders.holeinonejdbc.domain.Order;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.datasource.DataSourceUtils;
 import org.springframework.stereotype.Repository;
 
@@ -12,13 +13,13 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * ArticleRepository 인터페이스의 JDBC 구현체!
+ * ArticleRepository 인터페이스의 JDBC 구현체
  */
 @Repository
 public class JdbcArticleRepository implements ArticleRepository {
 
     private final DataSource dataSource;
-
+    @Autowired
     public JdbcArticleRepository(DataSource dataSource) {
         this.dataSource = dataSource;
     }

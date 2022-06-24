@@ -22,7 +22,6 @@ public class ArticleController {
     private final MemberService memberService;
     private final ArticleService articleService;
 
-    @Autowired
     public ArticleController(MemberService memberService, ArticleService articleService) {
         this.memberService = memberService;
         this.articleService = articleService;

@@ -2,6 +2,7 @@ package nosleepcoders.holeinonejdbc.repository;
 
 import nosleepcoders.holeinonejdbc.domain.GolfInfo;
 import nosleepcoders.holeinonejdbc.domain.Order;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.datasource.DataSourceUtils;
 import org.springframework.stereotype.Repository;
 
@@ -19,7 +20,7 @@ import java.util.Optional;
 public class JdbcOrderRepository implements OrderRepository {
 
     private final DataSource dataSource;
-
+    @Autowired
     public JdbcOrderRepository(DataSource dataSource) {
         this.dataSource = dataSource;
     }

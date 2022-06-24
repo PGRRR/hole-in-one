@@ -3,6 +3,7 @@ package nosleepcoders.holeinonejdbc.service;
 import nosleepcoders.holeinonejdbc.domain.Member;
 import nosleepcoders.holeinonejdbc.repository.MemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.http.HttpSession;
@@ -13,6 +14,7 @@ import java.util.Optional;
 /**
  * 회원 서비스 개발
  */
+@Service
 public class MemberService {
     private final MemberRepository memberRepository;
 

@@ -1,6 +1,7 @@
 package nosleepcoders.holeinonejdbc.repository;
 
 import nosleepcoders.holeinonejdbc.domain.Member;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.datasource.DataSourceUtils;
 import org.springframework.stereotype.Repository;
 
@@ -19,7 +20,7 @@ public class JdbcMemberRepository implements MemberRepository {
 
     private final DataSource dataSource; // DB 와 연결하기 위해서는 DataSource 필요
 
-
+    @Autowired
     public JdbcMemberRepository(DataSource dataSource) { // DataSource 는 Spring 에서 주입 받아야 한다.
         this.dataSource = dataSource;
     }
