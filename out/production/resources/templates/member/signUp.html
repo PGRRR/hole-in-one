@@ -3,9 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <title>회원 가입 | Hole in One</title>
+    <link rel="icon" href="/img/hole-in-one-1280.png" />
     <link rel="stylesheet" href="/css/memberStyle.css"/>
 </head>
 <body>
+<div class="map-box">
+    <div class="main-nav"></div>
+    <div id="map" style="width: 2000px; height: 100vh"></div>
+    <script
+            type="text/javascript"
+            src="//dapi.kakao.com/v2/maps/sdk.js?appkey=1493d0a48da5ab2a74b11985cb0651f5"
+    ></script>
+    <script>
+            // 장소명 인포 윈도우
+            var infowindow = new kakao.maps.InfoWindow({
+               zIndex: 1,
+            });
+
+            var mapContainer = document.getElementById("map"), // 지도를 표시할 div
+               mapOption = {
+                  center: new kakao.maps.LatLng(
+                     37.35007348609913,
+                     127.10891407950429
+                  ), // 지도 중심 좌표
+                  level: 3, // 지도의 확대 레벨
+               };
+            var map = new kakao.maps.Map(mapContainer, mapOption);
+         </script>
+</div>
 <div class="login-box">
     <div class="login-title">회원 가입 완료하기</div>
     <div class="nav"></div>
