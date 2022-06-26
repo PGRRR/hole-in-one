@@ -1,7 +1,5 @@
 # 개인 프로젝트
-
-
-
+![hole-in-one-128](https://user-images.githubusercontent.com/82517133/175815743-1cc0f927-8e4d-4aa6-b8c6-2b60816548e8.png)
 
 ## 📋 개요
 
@@ -23,7 +21,7 @@
 -  Language : HTML5, CSS3, JavaScript
 
 ## 💡 ERD
-![ERD](https://user-images.githubusercontent.com/82517133/173890368-eaea1a15-7c45-4c65-af7b-31aa91c835b2.png)
+![hole-in-one](https://user-images.githubusercontent.com/82517133/175815637-e6719916-6fc5-4046-af36-c77156f1c565.png)
 
 ## 📝 구현 기능 명세
 

@@ -1,6 +1,6 @@
 package nosleepcoders.holeinonejdbc.repository;
 
-import nosleepcoders.holeinonejdbc.domain.GolfInfo;
+import nosleepcoders.holeinonejdbc.domain.Store;
 import nosleepcoders.holeinonejdbc.domain.Order;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.datasource.DataSourceUtils;
@@ -133,20 +133,20 @@ public class JdbcOrderRepository implements OrderRepository {
         }
     }
 
-    public List<GolfInfo> findStoreByMemberId(Long id) {
-        String sql = "select * from orders left join golfInfo on orders.golfInfo_id = golfInfo.id where member_id = ?";
+    public List<Store> findStoreByMemberId(Long id) {
+        String sql = "select * from reservations left join stores on reservations.store_id = store.store_id where member_id = ?";
         try (Connection conn = getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setLong(1, id);
             try (ResultSet rs = pstmt.executeQuery()) {
-                List<GolfInfo> golfInfos = new ArrayList<>();
+                List<Store> stores = new ArrayList<>();
                 while (rs.next()) {
-                    GolfInfo golfInfo = new GolfInfo();
-                    golfInfo.setId(rs.getLong("id"));
-                    golfInfo.setGolfName(rs.getString("golfName"));
-                    golfInfos.add(golfInfo);
+                    Store store = new Store();
+                    store.setStore_id(rs.getLong("store_id"));
+                    store.setStore_name(rs.getString("store_name"));
+                    stores.add(store);
                 }
-                return golfInfos;
+                return stores;
             }
         } catch (Exception e) {
             throw new IllegalStateException(e);

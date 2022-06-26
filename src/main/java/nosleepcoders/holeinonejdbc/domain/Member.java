@@ -1,15 +1,18 @@
 package nosleepcoders.holeinonejdbc.domain;
 
+import lombok.Getter;
+
 /**
  * 회원 도메인 객체
  */
+@Getter
 public class Member {
 
     private long id;
     private String email;
     private String password;
     private String address;
-    private String phoneNumber;
+    private String phone;
     private String name;
     private String level = "0";
 
@@ -48,12 +51,12 @@ public class Member {
         this.address = address;
     }
 
-    public String getPhoneNumber() {
-        return phoneNumber;
+    public String getPhone() {
+        return phone;
     }
 
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
     public String getName() {

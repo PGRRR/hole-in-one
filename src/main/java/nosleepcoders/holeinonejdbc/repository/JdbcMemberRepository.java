@@ -44,7 +44,7 @@ public class JdbcMemberRepository implements MemberRepository {
             pstmt.setString(1, member.getEmail()); // pstmt.set<DATA TYPE>(순서, 값)
             pstmt.setString(2, member.getPassword());
             pstmt.setString(3, member.getAddress());
-            pstmt.setString(4, member.getPhoneNumber());
+            pstmt.setString(4, member.getPhone());
             pstmt.setString(5, member.getName());
             pstmt.executeUpdate(); // SQL 문장 실행 후, 변경된 row 수 int type 리턴, DB 에 실제 쿼리를 보낸다.
             // pstmt.excuteUpdate() : insert, update, delete
@@ -72,7 +72,7 @@ public class JdbcMemberRepository implements MemberRepository {
         try (Connection conn = getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setString(1, member.getAddress());
-            pstmt.setString(2, member.getPhoneNumber());
+            pstmt.setString(2, member.getPhone());
             pstmt.setLong(3, member.getId());
             pstmt.executeUpdate();
             return member;
@@ -100,7 +100,7 @@ public class JdbcMemberRepository implements MemberRepository {
                     member.setEmail(rs.getString("email"));
                     member.setPassword(rs.getString("password"));
                     member.setAddress(rs.getString("address"));
-                    member.setPhoneNumber(rs.getString("phoneNumber"));
+                    member.setPhone(rs.getString("phoneNumber"));
                     member.setName(rs.getString("name"));
                     member.setLevel(rs.getString("level"));
                     return Optional.of(member); // 멤버 객체 반환
@@ -133,7 +133,7 @@ public class JdbcMemberRepository implements MemberRepository {
                 member.setEmail(rs.getString("email"));
                 member.setPassword(rs.getString("password"));
                 member.setAddress(rs.getString("address"));
-                member.setPhoneNumber(rs.getString("phoneNumber"));
+                member.setPhone(rs.getString("phoneNumber"));
                 member.setName(rs.getString("name"));
                 member.setLevel(rs.getString("level"));
                 members.add(member); // 루프를 돌면서 List 컬렉션에 Member 객체를 담는다.
@@ -166,7 +166,7 @@ public class JdbcMemberRepository implements MemberRepository {
                 member.setEmail(rs.getString("email"));
                 member.setPassword(rs.getString("password"));
                 member.setAddress(rs.getString("address"));
-                member.setPhoneNumber(rs.getString("phoneNumber"));
+                member.setPhone(rs.getString("phoneNumber"));
                 member.setName(rs.getString("name"));
                 member.setLevel(rs.getString("level"));
                 return Optional.of(member);

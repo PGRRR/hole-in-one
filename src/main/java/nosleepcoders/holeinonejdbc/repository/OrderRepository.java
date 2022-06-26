@@ -1,6 +1,6 @@
 package nosleepcoders.holeinonejdbc.repository;
 
-import nosleepcoders.holeinonejdbc.domain.GolfInfo;
+import nosleepcoders.holeinonejdbc.domain.Store;
 import nosleepcoders.holeinonejdbc.domain.Order;
 
 import java.util.List;
@@ -21,5 +21,5 @@ public interface OrderRepository {
 
     List<Order> findNumberByMemberId(Long id);
 
-    List<GolfInfo> findStoreByMemberId(Long id);
+    List<Store> findStoreByMemberId(Long id);
 }

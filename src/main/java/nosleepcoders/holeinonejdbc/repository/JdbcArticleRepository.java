@@ -31,17 +31,17 @@ public class JdbcArticleRepository implements ArticleRepository {
 
     @Override
     public Article save(Article article) {
-        String sql = "insert into articles(title, text, member_id) values (?, ?, ?)";
+        String sql = "insert into articles(article_title, article_text, member_id) values (?, ?, ?)";
         try (Connection conn = getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)
         ) {
-            pstmt.setString(1, article.getTitle());
-            pstmt.setString(2, article.getText());
+            pstmt.setString(1, article.getArticle_title());
+            pstmt.setString(2, article.getArticle_text());
             pstmt.setLong(3, article.getMember_id());
             pstmt.executeUpdate();
             try (ResultSet rs = pstmt.getGeneratedKeys()) {
                 if (rs.next()) {
-                    article.setId(rs.getLong(1));
+                    article.setArticle_id(rs.getLong(1));
                 } else {
                     throw new SQLException("id 조회 실패");
                 }
@@ -54,7 +54,7 @@ public class JdbcArticleRepository implements ArticleRepository {
 
     @Override
     public Long delete(Long id) {
-        String sql = "delete from articles where id = ?";
+        String sql = "delete from articles where article_id = ?";
         try (Connection conn = getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setLong(1, id);
@@ -67,16 +67,16 @@ public class JdbcArticleRepository implements ArticleRepository {
 
     @Override
     public Optional<Article> findById(Long id) {
-        String sql = "select * from articles where id = ?";
+        String sql = "select * from articles where article_id = ?";
         try (Connection conn = getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setLong(1, id);
             try (ResultSet rs = pstmt.executeQuery()) {
                 if (rs.next()) {
                     Article article = new Article();
-                    article.setId(rs.getLong("id"));
-                    article.setTitle(rs.getString("title"));
-                    article.setText(rs.getString("text"));
+                    article.setArticle_id(rs.getLong("article_id"));
+                    article.setArticle_title(rs.getString("article_title"));
+                    article.setArticle_text(rs.getString("article_text"));
                     article.setMember_id(rs.getLong("member_id"));
                     return Optional.of(article);
                 } else {
@@ -90,16 +90,16 @@ public class JdbcArticleRepository implements ArticleRepository {
 
     @Override
     public Optional<Article> findByTitle(String title) {
-        String sql = "select * from articles where title = ?";
+        String sql = "select * from articles where article_title = ?";
         try (Connection conn = getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setString(1, title);
             try (ResultSet rs = pstmt.executeQuery()) {
                 if (rs.next()) {
                     Article article = new Article();
-                    article.setId(rs.getLong("id"));
-                    article.setTitle(rs.getString("title"));
-                    article.setText(rs.getString("text"));
+                    article.setArticle_id(rs.getLong("article_id"));
+                    article.setArticle_title(rs.getString("article_title"));
+                    article.setArticle_text(rs.getString("article_text"));
                     article.setMember_id(rs.getLong("member_id"));
                     return Optional.of(article);
                 } else {
@@ -120,9 +120,9 @@ public class JdbcArticleRepository implements ArticleRepository {
                 List<Article> articles = new ArrayList<>();
                 while (rs.next()) {
                     Article article = new Article();
-                    article.setId(rs.getLong("id"));
-                    article.setTitle(rs.getString("title"));
-                    article.setText(rs.getString("text"));
+                    article.setArticle_id(rs.getLong("article_id"));
+                    article.setArticle_title(rs.getString("article_title"));
+                    article.setArticle_text(rs.getString("article_text"));
                     article.setMember_id(rs.getLong("member_id"));
                     articles.add(article);
                 }

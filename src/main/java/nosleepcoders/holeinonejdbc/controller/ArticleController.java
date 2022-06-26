@@ -64,7 +64,7 @@ public class ArticleController {
 
     @GetMapping("/{member_id}/{article_id}")
     public String delete(@PathVariable Long member_id, @PathVariable Long article_id, Article article) {
-        article.setId(article_id);
+        article.setArticle_id(article_id);
         article.setMember_id(member_id);
         articleService.delete(article);
         return "redirect:/articles";
