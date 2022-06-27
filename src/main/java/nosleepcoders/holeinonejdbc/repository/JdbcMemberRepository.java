@@ -1,6 +1,6 @@
 package nosleepcoders.holeinonejdbc.repository;
 
-import nosleepcoders.holeinonejdbc.domain.Member;
+import nosleepcoders.holeinonejdbc.domain.Members;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.datasource.DataSourceUtils;
 import org.springframework.stereotype.Repository;
@@ -29,7 +29,7 @@ public class JdbcMemberRepository implements MemberRepository {
      * 저장
      */
     @Override
-    public Member save(Member member) {
+    public Members save(Members members) {
         String sql = "insert into member(email, password, address, phoneNumber, name) values(?, ?, ?, ?, ?)"; // 쿼리문
         Connection conn = null;
         PreparedStatement pstmt = null; // SQL 문을 데이터베이스에 보내기 위한 객체
@@ -41,21 +41,21 @@ public class JdbcMemberRepository implements MemberRepository {
             conn = getConnection();
             pstmt = conn.prepareStatement(sql, // PreparedStatement 객체 생성, 객체 생성시 SQL 문장 저장
                     Statement.RETURN_GENERATED_KEYS); // DB 에서 새로 생성된 id 값을 읽어오는 기능
-            pstmt.setString(1, member.getEmail()); // pstmt.set<DATA TYPE>(순서, 값)
-            pstmt.setString(2, member.getPassword());
-            pstmt.setString(3, member.getAddress());
-            pstmt.setString(4, member.getPhone());
-            pstmt.setString(5, member.getName());
+            pstmt.setString(1, members.getEmail()); // pstmt.set<DATA TYPE>(순서, 값)
+            pstmt.setString(2, members.getPassword());
+            pstmt.setString(3, members.getAddress());
+            pstmt.setString(4, members.getPhone());
+            pstmt.setString(5, members.getName());
             pstmt.executeUpdate(); // SQL 문장 실행 후, 변경된 row 수 int type 리턴, DB 에 실제 쿼리를 보낸다.
             // pstmt.excuteUpdate() : insert, update, delete
             // pstmt.excuteQuery() : select
             rs = pstmt.getGeneratedKeys(); // DB 에 AUTO_INCREMENT 로 인해 자동 생성된 key 를 가져오는 쿼리
             if (rs.next()) { // DB 가 생성한 값을 읽어서 Member 클래스에 넣어주는 과정
-                member.setId(rs.getLong(1));
+                members.setId(rs.getLong(1));
             } else {
                 throw new SQLException("id 조회 실패");
             }
-            return member;
+            return members;
         } catch (Exception e) {
             throw new IllegalStateException(e);
         } finally {
@@ -64,18 +64,18 @@ public class JdbcMemberRepository implements MemberRepository {
     }
 
     @Override
-    public Member update(Member member) {
+    public Members update(Members members) {
         String sql = "update member set address = ?, phoneNumber = ? where id = ?  "; // 쿼리문
         /**
          * try-with-resources
          */
         try (Connection conn = getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.setString(1, member.getAddress());
-            pstmt.setString(2, member.getPhone());
-            pstmt.setLong(3, member.getId());
+            pstmt.setString(1, members.getAddress());
+            pstmt.setString(2, members.getPhone());
+            pstmt.setLong(3, members.getId());
             pstmt.executeUpdate();
-            return member;
+            return members;
         } catch (Exception e) {
             throw new IllegalStateException(e);
         }
@@ -85,7 +85,7 @@ public class JdbcMemberRepository implements MemberRepository {
      * id 로 조회
      */
     @Override
-    public Optional<Member> findById(Long id) {
+    public Optional<Members> findById(Long id) {
         String sql = "select * from member where id = ?";
         /**
          * try-with-resources
@@ -95,15 +95,15 @@ public class JdbcMemberRepository implements MemberRepository {
             pstmt.setLong(1, id);
             try (ResultSet rs = pstmt.executeQuery()) { // indent-depth : 2
                 if (rs.next()) { // 값이 있으면 멤버 객체를 생성 후
-                    Member member = new Member();
-                    member.setId(rs.getLong("id"));
-                    member.setEmail(rs.getString("email"));
-                    member.setPassword(rs.getString("password"));
-                    member.setAddress(rs.getString("address"));
-                    member.setPhone(rs.getString("phoneNumber"));
-                    member.setName(rs.getString("name"));
-                    member.setLevel(rs.getString("level"));
-                    return Optional.of(member); // 멤버 객체 반환
+                    Members members = new Members();
+                    members.setId(rs.getLong("id"));
+                    members.setEmail(rs.getString("email"));
+                    members.setPassword(rs.getString("password"));
+                    members.setAddress(rs.getString("address"));
+                    members.setPhone(rs.getString("phoneNumber"));
+                    members.setName(rs.getString("name"));
+                    members.setLevel(rs.getString("level"));
+                    return Optional.of(members); // 멤버 객체 반환
                 } else {
                     return Optional.empty();
                 }
@@ -117,7 +117,7 @@ public class JdbcMemberRepository implements MemberRepository {
      * 모든 값 조회
      */
     @Override
-    public List<Member> findAll() {
+    public List<Members> findAll() {
         String sql = "select * from member";
         Connection conn = null;
         PreparedStatement pstmt = null;
@@ -126,9 +126,9 @@ public class JdbcMemberRepository implements MemberRepository {
             conn = getConnection();
             pstmt = conn.prepareStatement(sql);
             rs = pstmt.executeQuery();
-            List<Member> members = new ArrayList<>(); // Member 객체를 담는 List 컬렉션 생성
+            List<Members> members = new ArrayList<>(); // Member 객체를 담는 List 컬렉션 생성
             while (rs.next()) {
-                Member member = new Member();
+                Members member = new Members();
                 member.setId(rs.getLong("id"));
                 member.setEmail(rs.getString("email"));
                 member.setPassword(rs.getString("password"));
@@ -150,7 +150,7 @@ public class JdbcMemberRepository implements MemberRepository {
      * email 로 조회
      */
     @Override
-    public Optional<Member> findByEmail(String email) {
+    public Optional<Members> findByEmail(String email) {
         String sql = "select * from member where email = ?";
         Connection conn = null;
         PreparedStatement pstmt = null;
@@ -161,15 +161,15 @@ public class JdbcMemberRepository implements MemberRepository {
             pstmt.setString(1, email);
             rs = pstmt.executeQuery();
             if (rs.next()) {
-                Member member = new Member();
-                member.setId(rs.getLong("id"));
-                member.setEmail(rs.getString("email"));
-                member.setPassword(rs.getString("password"));
-                member.setAddress(rs.getString("address"));
-                member.setPhone(rs.getString("phoneNumber"));
-                member.setName(rs.getString("name"));
-                member.setLevel(rs.getString("level"));
-                return Optional.of(member);
+                Members members = new Members();
+                members.setId(rs.getLong("id"));
+                members.setEmail(rs.getString("email"));
+                members.setPassword(rs.getString("password"));
+                members.setAddress(rs.getString("address"));
+                members.setPhone(rs.getString("phoneNumber"));
+                members.setName(rs.getString("name"));
+                members.setLevel(rs.getString("level"));
+                return Optional.of(members);
             }
             return Optional.empty();
         } catch (Exception e) {

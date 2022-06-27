@@ -1,6 +1,6 @@
 package nosleepcoders.holeinonejdbc.service;
 
-import nosleepcoders.holeinonejdbc.domain.Member;
+import nosleepcoders.holeinonejdbc.domain.Members;
 import nosleepcoders.holeinonejdbc.repository.MemberRepository;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -11,24 +11,24 @@ import javax.transaction.Transactional;
 
 @SpringBootTest
 @Transactional
-public class MemberServiceIntegrationTest {
+public class MembersServiceIntegrationTest {
     @Autowired MemberService memberService;
     @Autowired MemberRepository memberRepository;
 
     @Test
     void 회원가입() {
         //given
-        Member member = new Member();
-        member.setEmail("spring");
-        member.setPassword("spring");
-        member.setName("spring");
+        Members members = new Members();
+        members.setEmail("spring");
+        members.setPassword("spring");
+        members.setName("spring");
 
         //when
-        Long saveId = memberService.join(member);
+        Long saveId = memberService.join(members);
 
         //then
-        Member findMember = memberService.findOne(saveId).get();
-        Assertions.assertThat(member.getEmail()).isEqualTo(findMember.getEmail());
+        Members findMembers = memberService.findOne(saveId).get();
+        Assertions.assertThat(members.getEmail()).isEqualTo(findMembers.getEmail());
     }
 
 }

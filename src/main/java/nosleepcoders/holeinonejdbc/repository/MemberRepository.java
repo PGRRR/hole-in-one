@@ -1,6 +1,6 @@
 package nosleepcoders.holeinonejdbc.repository;
 
-import nosleepcoders.holeinonejdbc.domain.Member;
+import nosleepcoders.holeinonejdbc.domain.Members;
 
 import java.util.List;
 import java.util.Optional;
@@ -10,13 +10,13 @@ import java.util.Optional;
  */
 public interface MemberRepository {
 
-    Member save(Member member);
+    Members save(Members members);
 
-    Member update(Member member);
+    Members update(Members members);
 
-    Optional<Member> findById(Long id);
+    Optional<Members> findById(Long id);
 
-    Optional<Member> findByEmail(String email);
+    Optional<Members> findByEmail(String email);
 
-    List<Member> findAll();
+    List<Members> findAll();
 }

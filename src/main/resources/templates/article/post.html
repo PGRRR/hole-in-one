@@ -10,10 +10,10 @@
 <div class="login-box">
     <div class="login-title">커뮤니티</div>
     <div class="nav"></div>
-    <form class="email-form" th:action="@{'/articles/'+${session.member.id}+'/post'}" method="post">
+    <form class="email-form" th:action="@{'/articles/'+${session.members.id}+'/post'}" method="post">
         <div class="login-text">글 등록</div>
         <div class="nav"></div>
-        <div class="member">
+        <div class="members">
             <div class="input-text-group">
                 <input class="input-text" type="text" name="title" placeholder="글 제목"/>
                 <input class="input-text" type="text" name="text" placeholder="본문"/>

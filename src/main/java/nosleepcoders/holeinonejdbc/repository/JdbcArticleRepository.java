@@ -1,7 +1,6 @@
 package nosleepcoders.holeinonejdbc.repository;
 
 import nosleepcoders.holeinonejdbc.domain.Article;
-import nosleepcoders.holeinonejdbc.domain.Order;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.datasource.DataSourceUtils;
 import org.springframework.stereotype.Repository;

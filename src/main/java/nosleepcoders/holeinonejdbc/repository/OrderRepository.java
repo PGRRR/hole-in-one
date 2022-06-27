@@ -1,7 +1,7 @@
 package nosleepcoders.holeinonejdbc.repository;
 
+import nosleepcoders.holeinonejdbc.domain.Orders;
 import nosleepcoders.holeinonejdbc.domain.Store;
-import nosleepcoders.holeinonejdbc.domain.Order;
 
 import java.util.List;
 import java.util.Optional;
@@ -11,15 +11,15 @@ import java.util.Optional;
  */
 public interface OrderRepository {
 
-    Order save(Order order);
+    Orders save(Orders orders);
 
     String delete(String number);
 
-    Optional<Order> findById(Long id);
+    Optional<Orders> findById(Long id);
 
-    Optional<Order> findByNumber(String number);
+    Optional<Orders> findByNumber(String number);
 
-    List<Order> findNumberByMemberId(Long id);
+    List<Orders> findNumberByMemberId(Long id);
 
     List<Store> findStoreByMemberId(Long id);
 }

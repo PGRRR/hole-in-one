@@ -25,7 +25,7 @@ public class ArticleService {
     }
 
     public void delete(Article article) {
-        articleRepository.delete(article.getId());
+        articleRepository.delete(article.getArticle_id());
     }
 
     public List<Article> view() {

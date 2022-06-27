@@ -1,7 +1,6 @@
 package nosleepcoders.holeinonejdbc.controller;
 
-import nosleepcoders.holeinonejdbc.domain.Member;
-import nosleepcoders.holeinonejdbc.repository.MemberRepository;
+import nosleepcoders.holeinonejdbc.domain.Members;
 import nosleepcoders.holeinonejdbc.service.MemberService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,8 +19,6 @@ public class MemberController {
     public MemberController(MemberService memberService) {
         this.memberService = memberService;
     }
-
-    private MemberRepository memberRepository;
 
     /**
      * email 확인 POST 요청
@@ -72,14 +69,14 @@ public class MemberController {
      * 회원 가입 POST 요청
      */
     @PostMapping("/signUp")
-    public String member(Member member, Model model) {
+    public String member(Members members, Model model) {
         try {
-            memberService.join(member);
+            memberService.join(members);
             System.out.println("SAVE MEMBER");
             return "redirect:/";
         } catch (IllegalStateException e) {
             System.out.println("OVERLAP EMAIL FAIL");
-            model.addAttribute("email", member.getEmail());
+            model.addAttribute("email", members.getEmail());
             model.addAttribute("verify", "fail");
             return "/member/signUp";
         }
@@ -91,7 +88,7 @@ public class MemberController {
     @GetMapping("/{id}/profile")
     public String myAccount(@PathVariable Long id, HttpSession session, Model model) {
         try {
-            Optional<Member> member = memberService.access(id, session);
+            Optional<Members> member = memberService.access(id, session);
             model.addAttribute("member", member.get());
             model.addAttribute("update", "fail");
             return "/member/memberUpdate";
@@ -104,10 +101,10 @@ public class MemberController {
      * 개인 정보 수정 POST 요청
      */
     @PostMapping("/{id}/profile")
-    public String update(@PathVariable Long id, Member updateMember, HttpSession session, Model model) {
+    public String update(@PathVariable Long id, Members updateMembers, HttpSession session, Model model) {
         try {
             memberService.access(id, session);
-            memberService.edit(updateMember);
+            memberService.edit(updateMembers);
             model.addAttribute("update", "pass");
             return "/member/memberUpdate";
         } catch (IllegalStateException e) {

@@ -1,7 +1,7 @@
 package nosleepcoders.holeinonejdbc.repository;
 
+import nosleepcoders.holeinonejdbc.domain.Orders;
 import nosleepcoders.holeinonejdbc.domain.Store;
-import nosleepcoders.holeinonejdbc.domain.Order;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.datasource.DataSourceUtils;
 import org.springframework.stereotype.Repository;
@@ -30,23 +30,23 @@ public class JdbcOrderRepository implements OrderRepository {
     }
 
     @Override
-    public Order save(Order order) {
+    public Orders save(Orders orders) {
         String sql = "insert into orders(number, total_price, member_id, golfInfo_id) values (?, ?, ?, ?)";
         try (Connection conn = getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)
              ) {
-            pstmt.setString(1, order.getNumber());
-            pstmt.setString(2, order.getTotal_price());
-            pstmt.setLong(3, order.getMember_id());
-            pstmt.setLong(4, order.getGolfInfo_id());
+            pstmt.setString(1, orders.getNumber());
+            pstmt.setString(2, orders.getTotal_price());
+            pstmt.setLong(3, orders.getMember_id());
+            pstmt.setLong(4, orders.getGolfInfo_id());
             pstmt.executeUpdate();
             try (ResultSet rs = pstmt.getGeneratedKeys()) {
                 if (rs.next()) {
-                    order.setId(rs.getLong(1));
+                    orders.setId(rs.getLong(1));
                 } else {
                     throw new SQLException("id 조회 실패");
                 }
-                return order;
+                return orders;
             }
         } catch (Exception e) {
             throw new IllegalStateException(e);
@@ -67,19 +67,19 @@ public class JdbcOrderRepository implements OrderRepository {
     }
 
     @Override
-    public Optional<Order> findById(Long id) {
+    public Optional<Orders> findById(Long id) {
         String sql = "select * from orders where id = ?";
         try (Connection conn = getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setLong(1, id);
             try (ResultSet rs = pstmt.executeQuery()) {
                 if (rs.next()) {
-                    Order order = new Order();
-                    order.setId(rs.getLong("id"));
-                    order.setNumber(rs.getString("number"));
-                    order.setTotal_price(rs.getString("total_price"));
-                    order.setMember_id(rs.getLong("member_id"));
-                    return Optional.of(order);
+                    Orders orders = new Orders();
+                    orders.setId(rs.getLong("id"));
+                    orders.setNumber(rs.getString("number"));
+                    orders.setTotal_price(rs.getString("total_price"));
+                    orders.setMember_id(rs.getLong("member_id"));
+                    return Optional.of(orders);
                 } else {
                     return Optional.empty();
                 }
@@ -90,19 +90,19 @@ public class JdbcOrderRepository implements OrderRepository {
     }
 
     @Override
-    public Optional<Order> findByNumber(String number) {
+    public Optional<Orders> findByNumber(String number) {
         String sql = "select * from orders where number = ?";
         try (Connection conn = getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setString(1, number);
             try (ResultSet rs = pstmt.executeQuery()) {
                 if (rs.next()) {
-                    Order order = new Order();
-                    order.setId(rs.getLong("id"));
-                    order.setNumber(rs.getString("number"));
-                    order.setTotal_price(rs.getString("total_price"));
-                    order.setMember_id(rs.getLong("member_id"));
-                    return Optional.of(order);
+                    Orders orders = new Orders();
+                    orders.setId(rs.getLong("id"));
+                    orders.setNumber(rs.getString("number"));
+                    orders.setTotal_price(rs.getString("total_price"));
+                    orders.setMember_id(rs.getLong("member_id"));
+                    return Optional.of(orders);
                 } else {
                     return Optional.empty();
                 }
@@ -113,15 +113,15 @@ public class JdbcOrderRepository implements OrderRepository {
     }
 
     @Override
-    public List<Order> findNumberByMemberId(Long id) {
+    public List<Orders> findNumberByMemberId(Long id) {
         String sql = "select * from orders left join golfInfo on orders.golfInfo_id = golfInfo.id where member_id = ?";
         try (Connection conn = getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setLong(1, id);
             try (ResultSet rs = pstmt.executeQuery()) {
-                List<Order> orders = new ArrayList<>();
+                List<Orders> orders = new ArrayList<>();
                 while (rs.next()) {
-                    Order order = new Order();
+                    Orders order = new Orders();
                     order.setNumber(rs.getString("number"));
                     order.setGolfInfo_id(rs.getLong("golfInfo_id"));
                     orders.add(order);

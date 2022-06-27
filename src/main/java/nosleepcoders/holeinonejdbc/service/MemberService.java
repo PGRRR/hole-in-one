@@ -3,17 +3,15 @@ package nosleepcoders.holeinonejdbc.service;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import nosleepcoders.holeinonejdbc.domain.Member;
+import nosleepcoders.holeinonejdbc.domain.Members;
 import nosleepcoders.holeinonejdbc.repository.MemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.http.HttpSession;
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
@@ -33,20 +31,20 @@ public class MemberService {
     /**
      * 회원 가입
      */
-    public Long join(Member member) {
-        memberRepository.findByEmail(member.getEmail()) // 중복 회원 검증
+    public Long join(Members members) {
+        memberRepository.findByEmail(members.getEmail()) // 중복 회원 검증
                 .ifPresent(m -> {
                     throw new IllegalStateException("중복 회원입니다.");
                 });
-        memberRepository.save(member);
-        return member.getId();
+        memberRepository.save(members);
+        return members.getId();
     }
 
     /**
      * email 존재 여부 확인
      */
     public void emailCheck(String email) {
-        Optional<Member> member = memberRepository.findByEmail(email);
+        Optional<Members> member = memberRepository.findByEmail(email);
         if (member.isEmpty()) { // email 확인 검증
             System.out.println("EMAIL FAIL");
             throw new IllegalStateException("존재하지 않는 이메일입니다.");
@@ -57,8 +55,8 @@ public class MemberService {
     /**
      * 로그인
      */
-    public Optional<Member> login(String email, String password) {
-        Optional<Member> member = memberRepository.findByEmail(email);
+    public Optional<Members> login(String email, String password) {
+        Optional<Members> member = memberRepository.findByEmail(email);
         if (member.isEmpty()) { // email 확인 검증
             System.out.println("EMAIL FAIL");
             throw new IllegalStateException("존재하지 않는 이메일입니다.");
@@ -73,24 +71,24 @@ public class MemberService {
     /**
      * 개인 정보 접근 검증
      */
-    public Optional<Member> access(Long id, HttpSession session) {
+    public Optional<Members> access(Long id, HttpSession session) {
         Object sessionAttribute = session.getAttribute("member");
         if (sessionAttribute == null) {
             throw new IllegalStateException("잘못된 접근입니다.");
         }
-        Member sessionMember = (Member) sessionAttribute;
-        if (!id.equals(sessionMember.getId())) {
+        Members sessionMembers = (Members) sessionAttribute;
+        if (!id.equals(sessionMembers.getId())) {
             throw new IllegalStateException("잘못된 접근입니다.");
         }
-        return memberRepository.findByEmail(sessionMember.getEmail());
+        return memberRepository.findByEmail(sessionMembers.getEmail());
     }
 
     /**
      * 개인 정보 수정
      */
-    public void edit(Member updateMember){
-        Optional<Member> member = memberRepository.findByEmail(updateMember.getEmail());
-        memberRepository.update(updateMember);
+    public void edit(Members updateMembers){
+        Optional<Members> member = memberRepository.findByEmail(updateMembers.getEmail());
+        memberRepository.update(updateMembers);
         System.out.println("UPDATE MEMBER");
     }
 
@@ -199,11 +197,11 @@ public class MemberService {
         return userInfo;
     }
 
-    public List<Member> findMembers() {
+    public List<Members> findMembers() {
         return memberRepository.findAll();
     }
 
-    public Optional<Member> findOne(Long memberId) {
+    public Optional<Members> findOne(Long memberId) {
         return memberRepository.findById(memberId);
     }
 }

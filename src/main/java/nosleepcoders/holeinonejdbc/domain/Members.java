@@ -6,7 +6,7 @@ import lombok.Getter;
  * 회원 도메인 객체
  */
 @Getter
-public class Member {
+public class Members {
 
     private long id;
     private String email;
@@ -16,7 +16,7 @@ public class Member {
     private String name;
     private String level = "0";
 
-    public Member() {
+    public Members() {
     }
 
     public long getId() {

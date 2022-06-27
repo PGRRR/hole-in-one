@@ -1,6 +1,6 @@
 package nosleepcoders.holeinonejdbc.service;
 
-import nosleepcoders.holeinonejdbc.domain.Order;
+import nosleepcoders.holeinonejdbc.domain.Orders;
 import nosleepcoders.holeinonejdbc.repository.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,7 +15,7 @@ public class OrderService {
     }
 
     public Long reservation(Long golfInfo_id, Long member_id) {
-        Order order = new Order();
+        Orders orders = new Orders();
         StringBuilder randomNumber;
         do {
             randomNumber = new StringBuilder(6);
@@ -23,19 +23,19 @@ public class OrderService {
                 randomNumber.append((int)(Math.random() * 9));
             }
         } while (orderRepository.findByNumber(String.valueOf(randomNumber)).isPresent());
-        order.setNumber(String.valueOf(randomNumber));
-        order.setGolfInfo_id(golfInfo_id);
-        order.setMember_id(member_id);
-        orderRepository.save(order);
+        orders.setNumber(String.valueOf(randomNumber));
+        orders.setGolfInfo_id(golfInfo_id);
+        orders.setMember_id(member_id);
+        orderRepository.save(orders);
         System.out.println("예약 번호: " + randomNumber);
-        return order.getId();
+        return orders.getId();
     }
 
     public void cancel(String number) {
         orderRepository.delete(number);
     }
 
-    public List<Order> findOrderNumber(Long id) {
+    public List<Orders> findOrderNumber(Long id) {
         return orderRepository.findNumberByMemberId(id);
     }
 }

@@ -1,12 +1,10 @@
 package nosleepcoders.holeinonejdbc.repository;
 
-import nosleepcoders.holeinonejdbc.domain.Member;
-import org.springframework.beans.factory.annotation.Autowired;
+import nosleepcoders.holeinonejdbc.domain.Members;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
-import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
 import java.util.HashMap;
@@ -26,56 +24,46 @@ public class JdbcTemplateMemberRepository implements MemberRepository{
     }
 
     @Override
-    public Member save(Member member) {
+    public Members save(Members members) {
         SimpleJdbcInsert jdbcInsert = new SimpleJdbcInsert(jdbcTemplate);
         jdbcInsert.withTableName("member").usingGeneratedKeyColumns("id");
 
         Map<String, Object> parameters = new HashMap<>();
-        parameters.put("name", member.getName());
+        parameters.put("name", members.getName());
 
         Number key = jdbcInsert.executeAndReturnKey(new MapSqlParameterSource(parameters));
-        member.setId(key.longValue());
-        return member;
+        members.setId(key.longValue());
+        return members;
     }
 
     @Override
-    public Member update(Member member) {
+    public Members update(Members members) {
         return null;
     }
 
     @Override
-    public Optional<Member> findById(Long id) {
-        List<Member> result = jdbcTemplate.query("select * from member where id = ?", memberRowMapper());
+    public Optional<Members> findById(Long id) {
+        List<Members> result = jdbcTemplate.query("select * from member where id = ?", memberRowMapper());
         return result.stream().findAny();
     }
 
     @Override
-    public Optional<Member> findByEmail(String email) {
-        List<Member> result = jdbcTemplate.query("select * from member where email = ?", memberRowMapper());
+    public Optional<Members> findByEmail(String email) {
+        List<Members> result = jdbcTemplate.query("select * from member where email = ?", memberRowMapper());
         return result.stream().findAny();
     }
 
     @Override
-    public List<Member> findAll() {
+    public List<Members> findAll() {
         return jdbcTemplate.query("select * from member", memberRowMapper());
     }
 
-    private RowMapper<Member> memberRowMapper() {
+    private RowMapper<Members> memberRowMapper() {
         return (rs, rowNum) -> {
-            Member member = new Member();
-            member.setId(rs.getLong("id"));
-            member.setName(rs.getString("name"));
-            return member;
+            Members members = new Members();
+            members.setId(rs.getLong("id"));
+            members.setName(rs.getString("name"));
+            return members;
         };
-        // 람다 이전
-//        new RowMapper<Member>() {
-//            @Override
-//            public Member mapRow(ResultSet rs, int rowNum) throws SQLException {
-//                Member member = new Member();
-//                member.setId(rs.getLong("id"));
-//                member.setName(rs.getString("name"));
-//                return member;
-//            }
-//        }
     }
 }

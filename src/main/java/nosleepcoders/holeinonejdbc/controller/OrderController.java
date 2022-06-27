@@ -1,6 +1,6 @@
 package nosleepcoders.holeinonejdbc.controller;
 
-import nosleepcoders.holeinonejdbc.domain.Order;
+import nosleepcoders.holeinonejdbc.domain.Orders;
 import nosleepcoders.holeinonejdbc.service.MemberService;
 import nosleepcoders.holeinonejdbc.service.OrderService;
 import org.springframework.stereotype.Controller;
@@ -28,8 +28,8 @@ public class OrderController {
     public String list(@PathVariable Long id, HttpSession session, Model model) {
         try {
             memberService.access(id, session);
-            List<Order> orderNumbers = orderService.findOrderNumber(id);
-            model.addAttribute("orderNumbers", orderNumbers);
+            List<Orders> ordersNumbers = orderService.findOrderNumber(id);
+            model.addAttribute("orderNumbers", ordersNumbers);
             return "/order/list";
         } catch (Exception e) {
             return "redirect:/";

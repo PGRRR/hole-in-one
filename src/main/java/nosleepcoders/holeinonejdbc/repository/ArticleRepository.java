@@ -1,7 +1,6 @@
 package nosleepcoders.holeinonejdbc.repository;
 
 import nosleepcoders.holeinonejdbc.domain.Article;
-import nosleepcoders.holeinonejdbc.domain.Order;
 
 import java.util.List;
 import java.util.Optional;

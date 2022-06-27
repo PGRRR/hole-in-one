@@ -1,8 +1,6 @@
 package nosleepcoders.holeinonejdbc.repository;
 
-import nosleepcoders.holeinonejdbc.domain.Member;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
+import nosleepcoders.holeinonejdbc.domain.Members;
 
 import javax.persistence.EntityManager;
 import java.util.List;
@@ -15,33 +13,33 @@ public class JpaMemberRepository implements MemberRepository {
     }
 
     @Override
-    public Member save(Member member) {
-        em.persist(member);
-        return member;
+    public Members save(Members members) {
+        em.persist(members);
+        return members;
     }
 
     @Override
-    public Member update(Member member) {
+    public Members update(Members members) {
         return null;
     }
 
     @Override
-    public Optional<Member> findById(Long id) {
-        Member member = em.find(Member.class, id);
-        return Optional.ofNullable(member);
+    public Optional<Members> findById(Long id) {
+        Members members = em.find(Members.class, id);
+        return Optional.ofNullable(members);
     }
 
     @Override
-    public Optional<Member> findByEmail(String email) {
-        List<Member> result = em.createQuery("select m from Member m where m.email = :email", Member.class)
+    public Optional<Members> findByEmail(String email) {
+        List<Members> result = em.createQuery("select m from member m where m.email = :email", Members.class)
                 .setParameter("email", email)
                 .getResultList();
         return result.stream().findAny();
     }
 
     @Override
-    public List<Member> findAll() {
-        return em.createQuery("select m from Member m", Member.class)
+    public List<Members> findAll() {
+        return em.createQuery("select m from Member m", Members.class)
                 .getResultList();
     }
 }

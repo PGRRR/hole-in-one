@@ -3,7 +3,7 @@ package nosleepcoders.holeinonejdbc.domain;
 /**
  * 예약 도메인 객체
  */
-public class Order {
+public class Orders {
     private Long id;
     private String number;
     private String total_price;
