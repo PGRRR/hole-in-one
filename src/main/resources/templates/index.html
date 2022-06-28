@@ -56,7 +56,7 @@
             </button>
             <a
                th:if="${session.member != null}"
-               th:href="@{'/orders/'+${session.member.id}}"
+               th:href="@{'/reservations/'+${session.member.id}}"
             >
                <button class="btn-submit" type="button">내 예약 목록</button>
             </a>

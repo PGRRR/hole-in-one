@@ -11,21 +11,21 @@
     <div class="login-title">내 예약 목록</div>
     <div class="nav"></div>
     <div class="login-text">임시 예약 버튼</div>
-    <form th:action="@{'/orders/'+${session.member.id}+'/store'}" method="get">
+    <form th:action="@{'/reservations/'+${session.member.id}+'/store'}" method="get">
         <input class="btn-submit" type="submit" name="golfInfo_id" value="1">
     </form>
-    <form th:action="@{'/orders/'+${session.member.id}+'/store'}" method="get">
+    <form th:action="@{'/reservations/'+${session.member.id}+'/store'}" method="get">
         <input class="btn-submit" type="submit" name="golfInfo_id" value="2">
     </form>
-    <form th:action="@{'/orders/'+${session.member.id}+'/store'}" method="get">
+    <form th:action="@{'/reservations/'+${session.member.id}+'/store'}" method="get">
         <input class="btn-submit" type="submit" name="golfInfo_id" value="3">
     </form>
     <div class="nav"></div>
     <div class="login-text">예약 정보</div>
     <div class="member">
-        <div th:each="order:${orderNumbers}">
-            <div th:text="${order.golfInfo_id}" class="login-text">예약 매장</div>
-                <a th:href="@{'/orders/'+${session.member.id}+'/'+${order.number}}">
+        <div th:each="reservation:${reservationNumbers}">
+            <div th:text="${reservation.golfInfo_id}" class="login-text">예약 매장</div>
+                <a th:href="@{'/reservations/'+${session.member.id}+'/'+${reservation.number}}">
                     <button class="btn-submit" type="button">예약 취소</button>
                 </a>
         </div>
