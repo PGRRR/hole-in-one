@@ -35,7 +35,7 @@
     <div class="login-title">회원 가입 완료하기</div>
     <div class="nav"></div>
     <div class="login-text">Hole in One에 오신 것을 환영합니다.</div>
-    <div th:if="${session.member == null}">
+    <div th:if="${session.members == null}">
         <form class="email-form" action="/members/signUp" method="post">
             <div class="input-text-group">
                 <div th:if="${verify == 'fail'}"class="verify-message">⚠️ 이미 가입된 회원입니다.</div>
