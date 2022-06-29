@@ -16,7 +16,6 @@ import java.util.Optional;
 @Controller
 @RequestMapping("/articles")
 public class ArticleController {
-
     private final MemberService memberService;
     private final ArticleService articleService;
 

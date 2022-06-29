@@ -16,7 +16,6 @@ import java.util.Optional;
 @Controller
 @RequestMapping("/members")
 public class MemberController {
-
     private final MemberService memberService;
     private final MemberRepository memberRepository;
     public MemberController(MemberService memberService, MemberRepository memberRepository) {

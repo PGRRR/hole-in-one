@@ -11,7 +11,7 @@
         <div class="login-title">로그인 또는 회원 가입</div>
         <div class="nav"></div>
         <div class="login-text">Hole in One에 오신 것을 환영합니다.</div>
-        <form class="email-form" action="/members/" method="post">
+        <form class="email-form" action="/member/" method="post">
             <div class="input-text-group">
                 <input hidden="hidden"/>
                 <input class="input-text" type="text" name="email" placeholder="이메일"/>
@@ -24,7 +24,7 @@
         <div class="login-title">로그인</div>
         <div class="nav"></div>
         <div class="login-text">Hole in One에 오신 것을 환영합니다.</div>
-        <form class="email-form" action="/members/signIn" method="post">
+        <form class="email-form" action="/member/signIn" method="post">
             <div class="input-text-group">
                 <div th:if="${verify == 'fail'}"class="verify-message">⚠️ 이메일 또는 비밀번호가 틀렸습니다.</div>
                 <input hidden="hidden"/>

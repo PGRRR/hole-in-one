@@ -34,15 +34,15 @@
 <div class="login-box">
     <div class="login-title">회원 정보 수정</div>
     <div class="nav"></div>
-    <div th:text="${session.members.name}+' 님의 회원 정보'" class="login-text">회원 정보 수정</div>
-    <div th:if="${session.members != null}">
-        <form class="email-form" th:action="@{'/members/'+${session.members.id}+'/profile'}" method="post">
+    <div th:text="${session.member.name}+' 님의 회원 정보'" class="login-text">회원 정보 수정</div>
+    <div th:if="${session.member != null}">
+        <form class="email-form" th:action="@{'/member/'+${session.member.id}+'/profile'}" method="post">
             <div class="input-text-group">
                 <input hidden="hidden"/>
-                <input class="input-text" type="text" th:value="${session.members.email}" style="background:#eaeaea; color:#999999;" disabled/>
-                <input type="text" name="email" th:value="${session.members.email}" hidden="hidden"/>
+                <input class="input-text" type="text" th:value="${session.member.email}" style="background:#eaeaea; color:#999999;" disabled/>
+                <input type="text" name="email" th:value="${session.member.email}" hidden="hidden"/>
                 <div class="message">⚠️ 이메일이 필요합니다.</div>
-                <div th:each="memberInfo:${members}">
+                <div th:each="memberInfo:${member}">
                         <input hidden="hidden"/>
                         <input class="input-text" type="text" name="address" placeholder="주소"
                                th:value="${memberInfo.address}"/>

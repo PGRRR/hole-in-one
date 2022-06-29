@@ -10,12 +10,12 @@
 <div class="login-box">
     <div class="login-title">커뮤니티</div>
     <div class="nav"></div>
-    <div class="members">
+    <div class="member">
             <div th:text="${article.title}" class="login-text">글 제목</div>
             <div class="nav"></div>
             <div th:text="${article.text}" class="article-text">본문</div>
     </div>
-    <a th:if="${session.members != null}" th:href="@{'/articles/'+${session.members.id}+'/'+${article.id}}">
+    <a th:if="${session.member != null}" th:href="@{'/articles/'+${session.member.id}+'/'+${article.id}}">
         <button class="btn-submit" type="button">글 삭제</button>
     </a>
     <button class="btn-home" onclick="location.href='/articles'" type="button">목록으로 돌아가기</button>
