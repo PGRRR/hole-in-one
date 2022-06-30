@@ -1,6 +1,7 @@
 package nosleepcoders.holeinone.controller;
 
 import nosleepcoders.holeinone.domain.Member;
+import nosleepcoders.holeinone.dto.MemberUpdateDto;
 import nosleepcoders.holeinone.repository.MemberRepository;
 import nosleepcoders.holeinone.service.MemberService;
 import org.springframework.http.ResponseEntity;
@@ -105,10 +106,10 @@ public class MemberController {
      * 개인 정보 수정 POST 요청
      */
     @PostMapping("/{id}/profile")
-    public String update(@PathVariable Long id, Member updateMember, HttpSession session, Model model) {
+    public String update(@PathVariable Long id, MemberUpdateDto memberUpdateDto, HttpSession session, Model model) {
         try {
             memberService.access(id, session);
-            memberService.edit(updateMember);
+            memberService.edit(id, memberUpdateDto);
             model.addAttribute("update", "pass");
             return "/member/memberUpdate";
         } catch (IllegalStateException e) {

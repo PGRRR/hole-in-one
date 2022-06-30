@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import nosleepcoders.holeinone.dto.MemberUpdateDto;
+
 import javax.persistence.*;
 
 /**
@@ -36,4 +38,11 @@ public class Member {
 
     @Column(nullable = false)
     private Long level = 0L;
+
+    public void updateMemberInfo(MemberUpdateDto memberUpdateDto) {
+        this.name = memberUpdateDto.getName();
+        this.password = memberUpdateDto.getPassword();
+        this.address = memberUpdateDto.getAddress();
+        this.phone = memberUpdateDto.getPhone();
+    }
 }

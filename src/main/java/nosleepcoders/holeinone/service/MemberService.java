@@ -4,12 +4,16 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import nosleepcoders.holeinone.domain.Member;
+import nosleepcoders.holeinone.dto.MemberUpdateDto;
 import nosleepcoders.holeinone.repository.MemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityNotFoundException;
 import javax.servlet.http.HttpSession;
+
 import org.springframework.transaction.annotation.Transactional;
+
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -35,10 +39,12 @@ public class MemberService {
      */
     @Transactional
     public Long join(Member member) {
-        memberRepository.findByEmail(member.getEmail()) // 중복 회원 검증
-                .ifPresent(m -> {
-                    throw new IllegalStateException("중복 회원입니다.");
-                });
+        Optional<Member> byEmail = memberRepository.findByEmail(member.getEmail());// 중복 회원 검증
+        if (byEmail.isPresent()) {
+            System.out.println("DUPLICATE MEMBER");
+            throw new IllegalStateException("중복 회원");
+        }
+        System.out.println("SAVE MEMBER");
         memberRepository.save(member);
         return member.getMember_id();
     }
@@ -51,7 +57,7 @@ public class MemberService {
         Optional<Member> member = memberRepository.findByEmail(email);
         if (member.isEmpty()) { // email 확인 검증
             System.out.println("EMAIL FAIL");
-            throw new IllegalStateException("존재하지 않는 이메일입니다.");
+            throw new IllegalStateException("존재하지 않는 이메일");
         }
         System.out.println("EMAIL PASS");
     }
@@ -62,13 +68,10 @@ public class MemberService {
     @Transactional
     public Optional<Member> login(String email, String password) {
         Optional<Member> member = memberRepository.findByEmail(email);
-        if (member.isEmpty()) { // email 확인 검증
-            System.out.println("EMAIL FAIL");
-            throw new IllegalStateException("존재하지 않는 이메일입니다.");
-        }
+        emailCheck(email);
         if (!password.equals(member.get().getPassword())) { // 비밀번호 검증
             System.out.println("PASSWORD FAIL");
-            throw new NullPointerException("비밀번호가 틀렸습니다.");
+            throw new IllegalStateException("틀린 비밀번호");
         }
         return member;
     }
@@ -80,11 +83,11 @@ public class MemberService {
     public Optional<Member> access(Long id, HttpSession session) {
         Object sessionAttribute = session.getAttribute("member");
         if (sessionAttribute == null) {
-            throw new IllegalStateException("잘못된 접근입니다.");
+            throw new IllegalStateException("잘못된 접근");
         }
         Member sessionMember = (Member) sessionAttribute;
         if (!id.equals(sessionMember.getMember_id())) {
-            throw new IllegalStateException("잘못된 접근입니다.");
+            throw new IllegalStateException("잘못된 접근");
         }
         return memberRepository.findByEmail(sessionMember.getEmail());
     }
@@ -93,11 +96,12 @@ public class MemberService {
      * 개인 정보 수정
      */
     @Transactional
-    public void edit(Member updateMember){
-        Optional<Member> member = memberRepository.findByEmail(updateMember.getEmail());
-        memberRepository.update(updateMember);
+    public void edit(Long id, MemberUpdateDto memberUpdateDto) {
+        Optional<Member> member = memberRepository.findById(id);
+        member.get().updateMemberInfo(memberUpdateDto);
         System.out.println("UPDATE MEMBER");
     }
+
     @Transactional
     public String getAccessToken(String authorize_code) {
         String access_token = "";
@@ -154,6 +158,7 @@ public class MemberService {
         }
         return access_token;
     }
+
     @Transactional
     public HashMap<String, Object> getUserInfo(String access_Token) {
 
@@ -203,10 +208,12 @@ public class MemberService {
         }
         return userInfo;
     }
+
     @Transactional
     public List<Member> findMembers() {
         return memberRepository.findAll();
     }
+
     @Transactional
     public Optional<Member> findOne(Long memberId) {
         return memberRepository.findById(memberId);

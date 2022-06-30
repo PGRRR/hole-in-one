@@ -4,7 +4,6 @@ import nosleepcoders.holeinone.domain.Member;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
-import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 @Repository
@@ -22,7 +21,7 @@ public class JpaMemberRepository implements MemberRepository {
 
     @Override
     public Member update(Member member) {
-        return null;
+        return member;
     }
 
     @Override
@@ -33,7 +32,7 @@ public class JpaMemberRepository implements MemberRepository {
 
     @Override
     public Optional<Member> findByEmail(String email) {
-        List<Member> result = em.createQuery("select m from Member m where m.email = :email", Member.class)
+        List<Member> result = em.createQuery("select m from Member as m where m.email = :email", Member.class)
                 .setParameter("email", email)
                 .getResultList();
         return result.stream().findAny();

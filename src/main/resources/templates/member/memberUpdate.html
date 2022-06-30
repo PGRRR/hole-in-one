@@ -36,7 +36,7 @@
     <div class="nav"></div>
     <div th:text="${session.member.name}+' 님의 회원 정보'" class="login-text">회원 정보 수정</div>
     <div th:if="${session.member != null}">
-        <form class="email-form" th:action="@{'/member/'+${session.member.id}+'/profile'}" method="post">
+        <form class="email-form" th:action="@{'/members/'+${session.member.id}+'/profile'}" method="post">
             <div class="input-text-group">
                 <input hidden="hidden"/>
                 <input class="input-text" type="text" th:value="${session.member.email}" style="background:#eaeaea; color:#999999;" disabled/>
