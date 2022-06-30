@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpSession;
+import org.springframework.transaction.annotation.Transactional;
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -19,6 +20,7 @@ import java.util.Optional;
 /**
  * 회원 서비스 개발
  */
+@Transactional(readOnly = true)
 @Service
 public class MemberService {
     private final MemberRepository memberRepository;
@@ -31,6 +33,7 @@ public class MemberService {
     /**
      * 회원 가입
      */
+    @Transactional
     public Long join(Member member) {
         memberRepository.findByEmail(member.getEmail()) // 중복 회원 검증
                 .ifPresent(m -> {
@@ -43,6 +46,7 @@ public class MemberService {
     /**
      * email 존재 여부 확인
      */
+    @Transactional
     public void emailCheck(String email) {
         Optional<Member> member = memberRepository.findByEmail(email);
         if (member.isEmpty()) { // email 확인 검증
@@ -55,6 +59,7 @@ public class MemberService {
     /**
      * 로그인
      */
+    @Transactional
     public Optional<Member> login(String email, String password) {
         Optional<Member> member = memberRepository.findByEmail(email);
         if (member.isEmpty()) { // email 확인 검증
@@ -71,6 +76,7 @@ public class MemberService {
     /**
      * 개인 정보 접근 검증
      */
+    @Transactional
     public Optional<Member> access(Long id, HttpSession session) {
         Object sessionAttribute = session.getAttribute("member");
         if (sessionAttribute == null) {
@@ -86,12 +92,13 @@ public class MemberService {
     /**
      * 개인 정보 수정
      */
+    @Transactional
     public void edit(Member updateMember){
         Optional<Member> member = memberRepository.findByEmail(updateMember.getEmail());
         memberRepository.update(updateMember);
         System.out.println("UPDATE MEMBER");
     }
-
+    @Transactional
     public String getAccessToken(String authorize_code) {
         String access_token = "";
         String refresh_token = "";
@@ -147,7 +154,7 @@ public class MemberService {
         }
         return access_token;
     }
-
+    @Transactional
     public HashMap<String, Object> getUserInfo(String access_Token) {
 
         // 요청하는 클라이언트마다 가진 정보가 다를 수 있기에 HashMap 타입으로 선언
@@ -196,11 +203,11 @@ public class MemberService {
         }
         return userInfo;
     }
-
+    @Transactional
     public List<Member> findMembers() {
         return memberRepository.findAll();
     }
-
+    @Transactional
     public Optional<Member> findOne(Long memberId) {
         return memberRepository.findById(memberId);
     }

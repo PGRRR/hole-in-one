@@ -5,7 +5,9 @@ import nosleepcoders.holeinone.repository.ReservationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
+@Transactional(readOnly = true)
 @Service
 public class ReservationService {
     private final ReservationRepository reservationRepository;
@@ -13,7 +15,7 @@ public class ReservationService {
     public ReservationService(ReservationRepository reservationRepository) {
         this.reservationRepository = reservationRepository;
     }
-
+    @Transactional(readOnly = true)
     public Long reservation(Long store_id, Long member_id) {
         Reservation reservation = new Reservation();
         StringBuilder randomNumber;
@@ -30,11 +32,11 @@ public class ReservationService {
         System.out.println("예약 번호: " + randomNumber);
         return reservation.getReservation_id();
     }
-
+    @Transactional
     public void cancel(String number) {
         reservationRepository.delete(number);
     }
-
+    @Transactional
     public List<Reservation> findOrderNumber(Long id) {
         return reservationRepository.findNumberByMemberId(id);
     }
