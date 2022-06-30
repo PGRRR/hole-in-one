@@ -81,7 +81,7 @@ public class MemberService {
      */
     @Transactional
     public Optional<Member> access(Long id, HttpSession session) {
-        Object sessionAttribute = session.getAttribute("member");
+        Object sessionAttribute = session.getAttribute("members");
         if (sessionAttribute == null) {
             throw new IllegalStateException("잘못된 접근");
         }
@@ -96,10 +96,14 @@ public class MemberService {
      * 개인 정보 수정
      */
     @Transactional
-    public void edit(Long id, MemberUpdateDto memberUpdateDto) {
-        Optional<Member> member = memberRepository.findById(id);
-        member.get().updateMemberInfo(memberUpdateDto);
+    public Member edit(Long id, MemberUpdateDto memberUpdateDto) {
+        Member member = memberRepository.findById(id).get();
+        member.setName(memberUpdateDto.getName());
+        member.setPhone(memberUpdateDto.getPhone());
+        member.setAddress(memberUpdateDto.getAddress());
+        Member updatedMember = memberRepository.update(member);
         System.out.println("UPDATE MEMBER");
+        return updatedMember;
     }
 
     @Transactional
@@ -209,6 +213,12 @@ public class MemberService {
         return userInfo;
     }
 
+    public static MemberUpdateDto memberUpdateDto(Member member) {
+        String name = member.getName();
+        String phone = member.getPhone();
+        String address = member.getAddress();
+        return new MemberUpdateDto(name, phone, address);
+    }
     @Transactional
     public List<Member> findMembers() {
         return memberRepository.findAll();

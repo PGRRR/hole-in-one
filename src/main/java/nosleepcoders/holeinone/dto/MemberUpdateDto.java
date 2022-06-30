@@ -1,18 +1,24 @@
 package nosleepcoders.holeinone.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import nosleepcoders.holeinone.domain.Member;
 
 @Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class MemberUpdateDto {
-    private String password;
 
     private String name;
 
     private String phone;
 
     private String address;
+    public Member toEntity() {
+        return Member.builder()
+                .name(name)
+                .phone(phone)
+                .address(address)
+                .build();
+    }
 }

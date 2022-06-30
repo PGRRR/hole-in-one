@@ -8,7 +8,7 @@ import lombok.Setter;
 import javax.persistence.*;
 
 /**
- * 매장 도메인 객체
+ * 매장 엔티티 객체
  */
 @Getter
 @Setter

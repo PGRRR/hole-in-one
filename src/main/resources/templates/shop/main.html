@@ -60,13 +60,14 @@
          <div class="login-text">Hole in One에 오신 것을 환영합니다.</div>
          <div class="member">
             <a
-               th:if="${session.member != null}"
-               th:href="@{'/reservations/'+${session.member.id}}"
+               th:if="${session.members != null}"
+               th:href="@{'/reservations/'+${session.members.member_id}}"
             >
                <button class="btn-submit" type="button">내 예약 목록</button>
             </a>
+            <button class="btn-home" onclick="location.href='/'" type="button">홈으로 돌아가기</button>
             <button
-               th:if="${session.member != null}"
+               th:if="${session.members != null}"
                class="btn-home"
                onclick="location.href='/members/signOut'"
                type="button"

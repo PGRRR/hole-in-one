@@ -15,7 +15,7 @@
             <div class="nav"></div>
             <div th:text="${article.text}" class="article-text">본문</div>
     </div>
-    <a th:if="${session.member != null}" th:href="@{'/articles/'+${session.member.id}+'/'+${article.id}}">
+    <a th:if="${session.members != null}" th:href="@{'/articles/'+${session.members.member_id}+'/'+${article.article_id}}">
         <button class="btn-submit" type="button">글 삭제</button>
     </a>
     <button class="btn-home" onclick="location.href='/articles'" type="button">목록으로 돌아가기</button>

@@ -3,7 +3,7 @@
 	`email`	VARCHAR(100)	NOT NULL,
 	`password`	VARCHAR(100)	NOT NULL,
 	`name`	VARCHAR(100)	NOT NULL,
-	`phone`	INT	NULL,
+	`phone`	VARCHAR(100)	NULL,
 	`address`	VARCHAR(100)	NULL,
 	`level`	INT	NOT NULL	DEFAULT 0,
 	PRIMARY KEY(member_id)

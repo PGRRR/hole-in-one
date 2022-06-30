@@ -1,20 +1,22 @@
 package nosleepcoders.holeinone.domain;
 
-import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import nosleepcoders.holeinone.dto.MemberUpdateDto;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 
 /**
- * 회원 도메인 객체
+ * 회원 엔티티 객체
  */
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
+@DynamicUpdate
+@DynamicInsert
 @Entity(name = "members")
 public class Member {
 
@@ -37,12 +39,16 @@ public class Member {
     private String address;
 
     @Column(nullable = false)
-    private Long level = 0L;
+    private Long level;
 
-    public void updateMemberInfo(MemberUpdateDto memberUpdateDto) {
-        this.name = memberUpdateDto.getName();
-        this.password = memberUpdateDto.getPassword();
-        this.address = memberUpdateDto.getAddress();
-        this.phone = memberUpdateDto.getPhone();
+    @Builder
+    public Member(Long member_id, String email, String password, String name, String phone, String address, Long level) {
+        this.member_id = member_id;
+        this.email = email;
+        this.password = password;
+        this.name = name;
+        this.phone = phone;
+        this.address = address;
+        this.level = level;
     }
 }

@@ -42,7 +42,7 @@
          <div class="nav"></div>
          <div class="login-text">Hole in One에 오신 것을 환영합니다.</div>
          <div class="member">
-            <a th:if="${session.member != null}" href="/shops">
+            <a th:if="${session.members != null}" href="/shops">
                <button class="btn-submit" type="button">
                   스크린 골프 예약
                </button>
@@ -55,30 +55,30 @@
                커뮤니티
             </button>
             <a
-               th:if="${session.member != null}"
-               th:href="@{'/order/'+${session.member.id}}"
+               th:if="${session.members != null}"
+               th:href="@{'/order/'+${session.members.member_id}}"
             >
                <button class="btn-submit" type="button">내 예약 목록</button>
             </a>
             <a
                th:if="${session.members != null}"
-               th:href="@{'/members/'+${session.members.id}+'/profile'}"
+               th:href="@{'/members/'+${session.members.member_id}+'/profile'}"
             >
                <button class="btn-submit" type="button">내 계정</button>
             </a>
             <button
-               th:if="${session.member == null}"
+               th:if="${session.members == null}"
                class="btn-submit"
-               onclick="location.href='/member/signIn'"
+               onclick="location.href='/members/signIn'"
                type="button"
             >
                로그인 또는 회원 가입
             </button>
             <button
-               th:if="${session.member == null}"
+               th:if="${session.members == null}"
                id="kakao"
                class="btn-submit"
-               onclick="location.href='https://kauth.kakao.com/oauth/authorize?client_id=5859443def9b6affce697eeb663074dc&redirect_uri=http://localhost:3080/member/kakao&response_type=code'"
+               onclick="location.href='https://kauth.kakao.com/oauth/authorize?client_id=5859443def9b6affce697eeb663074dc&redirect_uri=http://localhost:3080/members/kakao&response_type=code'"
                type="button"
             >
                <span class="inner-kakao">
@@ -93,9 +93,9 @@
                </span>
             </button>
             <button
-               th:if="${session.member != null}"
+               th:if="${session.members != null}"
                class="btn-home"
-               onclick="location.href='/member/signOut'"
+               onclick="location.href='/members/signOut'"
                type="button"
             >
                로그아웃

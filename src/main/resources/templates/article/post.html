@@ -10,7 +10,7 @@
 <div class="login-box">
     <div class="login-title">커뮤니티</div>
     <div class="nav"></div>
-    <form class="email-form" th:action="@{'/articles/'+${session.member.id}+'/post'}" method="post">
+    <form class="email-form" th:action="@{'/articles/'+${session.members.member_id}+'/post'}" method="post">
         <div class="login-text">글 등록</div>
         <div class="nav"></div>
         <div class="member">

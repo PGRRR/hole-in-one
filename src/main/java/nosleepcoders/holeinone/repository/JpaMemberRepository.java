@@ -1,6 +1,7 @@
 package nosleepcoders.holeinone.repository;
 
 import nosleepcoders.holeinone.domain.Member;
+import nosleepcoders.holeinone.dto.MemberUpdateDto;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
@@ -32,7 +33,7 @@ public class JpaMemberRepository implements MemberRepository {
 
     @Override
     public Optional<Member> findByEmail(String email) {
-        List<Member> result = em.createQuery("select m from Member as m where m.email = :email", Member.class)
+        List<Member> result = em.createQuery("select m from members as m where m.email = :email", Member.class)
                 .setParameter("email", email)
                 .getResultList();
         return result.stream().findAny();
@@ -40,7 +41,7 @@ public class JpaMemberRepository implements MemberRepository {
 
     @Override
     public List<Member> findAll() {
-        return em.createQuery("select m from Member m", Member.class)
+        return em.createQuery("select m from members m", Member.class)
                 .getResultList();
     }
 }

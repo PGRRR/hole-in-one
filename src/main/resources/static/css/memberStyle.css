@@ -12,10 +12,6 @@ a {
 .snack-bar {
    font-family: "GmarketSansMedium";
    animation: 3s ease 0s normal forwards 1 fadeout;
-   display: flex;
-   justify-content: center;
-   align-items: flex-end;
-   margin: 0 auto;
    text-align: center;
    font-size: 16px;
    color: white;
@@ -56,6 +52,8 @@ body {
    width: 600px;
    height: 100vh;
    background-color: white;
+   padding-left: 50px;
+   padding-right: 50px;
 }
 
 .login-title {

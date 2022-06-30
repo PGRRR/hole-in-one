@@ -14,11 +14,11 @@
     <div class="nav"></div>
     <div class="member">
         <div th:each="article:${articleList}">
-            <a th:href="@{'/articles/view/'+${article.id}}">
+            <a th:href="@{'/articles/view/'+${article.article_id}}">
                 <div th:text="${article.title}" class="article-title">글 목록 제목</div>
             </a>
         </div>
-        <a th:if="${session.member != null}" th:href="@{'/articles/'+${session.member.id}+'/post'}">
+        <a th:if="${session.members != null}" th:href="@{'/articles/'+${session.members.member_id}+'/post'}">
             <button class="btn-submit" type="button">글 작성</button>
         </a>
         <button class="btn-home" onclick="location.href='/'" type="button">홈으로 돌아가기</button>

@@ -1,6 +1,7 @@
 package nosleepcoders.holeinone.repository;
 
 import nosleepcoders.holeinone.domain.Member;
+import nosleepcoders.holeinone.dto.MemberUpdateDto;
 
 import java.util.List;
 import java.util.Optional;

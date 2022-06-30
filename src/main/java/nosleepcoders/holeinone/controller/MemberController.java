@@ -52,7 +52,7 @@ public class MemberController {
     @PostMapping("/signIn")
     public String verify(String email, String password, HttpSession session, Model model) {
         try {
-            session.setAttribute("member", memberService.login(email, password).get()); // 로그인 검증
+            session.setAttribute("members", memberService.login(email, password).get()); // 로그인 검증
             System.out.println("ALL PASS");
             return "redirect:/";
         } catch (IllegalStateException e) {
@@ -94,7 +94,8 @@ public class MemberController {
     public String myAccount(@PathVariable Long id, HttpSession session, Model model) {
         try {
             Optional<Member> member = memberService.access(id, session);
-            model.addAttribute("member", member.get());
+            MemberUpdateDto memberUpdateDto = MemberService.memberUpdateDto(member.get());
+            model.addAttribute("members", memberUpdateDto);
             model.addAttribute("update", "fail");
             return "/member/memberUpdate";
         } catch (IllegalStateException e) {
@@ -109,8 +110,11 @@ public class MemberController {
     public String update(@PathVariable Long id, MemberUpdateDto memberUpdateDto, HttpSession session, Model model) {
         try {
             memberService.access(id, session);
-            memberService.edit(id, memberUpdateDto);
+            Member editedMember = memberService.edit(id, memberUpdateDto);
+            model.addAttribute("members", memberUpdateDto);
             model.addAttribute("update", "pass");
+            session.removeAttribute("members");
+            session.setAttribute("members", editedMember);
             return "/member/memberUpdate";
         } catch (IllegalStateException e) {
             return "redirect:/";
@@ -119,7 +123,7 @@ public class MemberController {
 
     @GetMapping("/signOut")
     public String logOut(HttpSession session) {
-        session.removeAttribute("member");
+        session.removeAttribute("members");
         return "redirect:/";
     }
 

@@ -8,13 +8,13 @@ import lombok.Setter;
 import javax.persistence.*;
 
 /**
- * 예약 도메인 객체
+ * 예약 엔티티 객체
  */
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity(name = "orders")
+@Entity(name = "reservations")
 public class Reservation {
     @Id
     @Column(nullable = false)

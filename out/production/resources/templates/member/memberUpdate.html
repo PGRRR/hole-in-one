@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>회원 정보 수정 | Hole in One</title>
-    <link rel="icon" href="/img/hole-in-one-1280.png" />
+    <link rel="icon" href="/img/hole-in-one-1280.png"/>
     <link rel="stylesheet" href="/css/memberStyle.css"/>
 </head>
 <body>
@@ -29,36 +29,41 @@
                   level: 3, // 지도의 확대 레벨
                };
             var map = new kakao.maps.Map(mapContainer, mapOption);
-         </script>
+
+    </script>
 </div>
 <div class="login-box">
     <div class="login-title">회원 정보 수정</div>
     <div class="nav"></div>
-    <div th:text="${session.member.name}+' 님의 회원 정보'" class="login-text">회원 정보 수정</div>
-    <div th:if="${session.member != null}">
-        <form class="email-form" th:action="@{'/member/'+${session.member.id}+'/profile'}" method="post">
+    <div th:text="${session.members.name}+' 님의 회원 정보'" class="login-text">회원 정보 수정</div>
+    <div th:if="${session.members != null}">
+        <form class="email-form" th:action="@{'/members/'+${session.members.member_id}+'/profile'}" method="post">
             <div class="input-text-group">
                 <input hidden="hidden"/>
-                <input class="input-text" type="text" th:value="${session.member.email}" style="background:#eaeaea; color:#999999;" disabled/>
-                <input type="text" name="email" th:value="${session.member.email}" hidden="hidden"/>
-                <div class="message">⚠️ 이메일이 필요합니다.</div>
-                <div th:each="memberInfo:${member}">
-                        <input hidden="hidden"/>
-                        <input class="input-text" type="text" name="address" placeholder="주소"
-                               th:value="${memberInfo.address}"/>
-                        <div class="message">⚠️ 주소가 필요합니다.</div>
-                        <input hidden="hidden"/>
-                        <input class="input-text" type="text" name="phone" placeholder="전화 번호"
-                               th:value="${memberInfo.phone}"/>
-                        <div class="message">⚠️ 전화번호가 필요합니다.</div>
+                <input class="input-text" type="text" th:value="${session.members.email}"
+                       style="background:#eaeaea; color:#999999;" disabled/>
+                <input type="text" name="email" th:value="${session.members.email}" hidden="hidden"/>
+                <div th:each="memberInfo:${members}">
+                    <input hidden="hidden"/>
+                    <input class="input-text" type="text" name="name" placeholder="이름"
+                           th:value="${memberInfo.name}"/>
+                    <div class="message">⚠️ 이름이 필요합니다.</div>
+                    <input hidden="hidden"/>
+                    <input class="input-text" type="text" name="address" placeholder="주소"
+                           th:value="${memberInfo.address}"/>
+                    <div class="message">⚠️ 주소가 필요합니다.</div>
+                    <input hidden="hidden"/>
+                    <input class="input-text" type="text" name="phone" placeholder="전화 번호"
+                           th:value="${memberInfo.phone}"/>
+                    <div class="message">⚠️ 전화번호가 필요합니다.</div>
                 </div>
             </div>
             <button class="btn-submit" type="button" onclick="updateCheck();">회원 정보 수정</button>
         </form>
         <button class="btn-home" onclick="location.href='/'" type="button">홈으로 돌아가기</button>
     </div>
-</div>
 <div th:if="${update == 'pass'}" class="snack-bar">변경 사항이 저장되었습니다.</div>
+</div>
 
 <script src="/js/app.js"></script>
 </body>
