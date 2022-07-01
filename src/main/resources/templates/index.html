@@ -40,6 +40,7 @@
          />
          <div class="login-title">골프 예약 서비스</div>
          <div class="nav"></div>
+         <div th:if="${session.members != null}" th:text="'안녕하세요. '+${session.members.name}+' 님'" class="login-text">안녕하세요.</div>
          <div class="login-text">Hole in One에 오신 것을 환영합니다.</div>
          <div class="member">
             <a th:if="${session.members != null}" href="/shops">
@@ -54,12 +55,6 @@
             >
                커뮤니티
             </button>
-            <a
-               th:if="${session.members != null}"
-               th:href="@{'/order/'+${session.members.member_id}}"
-            >
-               <button class="btn-submit" type="button">내 예약 목록</button>
-            </a>
             <a
                th:if="${session.members != null}"
                th:href="@{'/members/'+${session.members.member_id}+'/profile'}"

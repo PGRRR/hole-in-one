@@ -97,13 +97,11 @@ public class MemberService {
      */
     @Transactional
     public Member edit(Long id, MemberUpdateDto memberUpdateDto) {
-        Member member = memberRepository.findById(id).get();
-        member.setName(memberUpdateDto.getName());
-        member.setPhone(memberUpdateDto.getPhone());
-        member.setAddress(memberUpdateDto.getAddress());
-        Member updatedMember = memberRepository.update(member);
+        Member member = memberRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("해당하는 회원이 없습니다. id=" + id));
+        member.update(memberUpdateDto.getName(), memberUpdateDto.getPhone(), memberUpdateDto.getAddress());
+//        Member updatedMember = memberRepository.update(member);
         System.out.println("UPDATE MEMBER");
-        return updatedMember;
+        return member;
     }
 
     @Transactional
@@ -219,6 +217,7 @@ public class MemberService {
         String address = member.getAddress();
         return new MemberUpdateDto(name, phone, address);
     }
+
     @Transactional
     public List<Member> findMembers() {
         return memberRepository.findAll();

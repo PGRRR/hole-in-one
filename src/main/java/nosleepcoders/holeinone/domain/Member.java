@@ -4,6 +4,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import nosleepcoders.holeinone.dto.MemberUpdateDto;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
@@ -41,6 +42,11 @@ public class Member {
     @Column(nullable = false)
     private Long level;
 
+    public void update(String name, String phone, String address) {
+        this.name = name;
+        this.phone = phone;
+        this.address = address;
+    }
     @Builder
     public Member(Long member_id, String email, String password, String name, String phone, String address, Long level) {
         this.member_id = member_id;
@@ -50,5 +56,11 @@ public class Member {
         this.phone = phone;
         this.address = address;
         this.level = level;
+    }
+
+    public Member(MemberUpdateDto memberUpdateDto) {
+        this.name = memberUpdateDto.getName();
+        this.phone = memberUpdateDto.getPhone();
+        this.address = memberUpdateDto.getAddress();
     }
 }
