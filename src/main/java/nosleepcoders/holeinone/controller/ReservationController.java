@@ -1,8 +1,10 @@
 package nosleepcoders.holeinone.controller;
 
 import nosleepcoders.holeinone.domain.Reservation;
+import nosleepcoders.holeinone.dto.ReservationSaveRequestDto;
 import nosleepcoders.holeinone.service.MemberService;
 import nosleepcoders.holeinone.service.ReservationService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,16 +21,17 @@ public class ReservationController {
     private final MemberService memberService;
     private final ReservationService reservationService;
 
+    @Autowired
     public ReservationController(ReservationService reservationService, MemberService memberService) {
         this.reservationService = reservationService;
         this.memberService = memberService;
     }
 
     @GetMapping("/{id}")
-    public String list(@PathVariable Long id, HttpSession session, Model model) {
+    public String list(@PathVariable(value = "id") Long member_id, HttpSession session, Model model) {
         try {
-            memberService.access(id, session);
-            List<Reservation> reservationNumbers = reservationService.findOrderNumber(id);
+            memberService.access(member_id, session);
+            List<Reservation> reservationNumbers = reservationService.findOrderNumber(member_id);
             model.addAttribute("orderNumbers", reservationNumbers);
             return "/order/list";
         } catch (Exception e) {
@@ -37,15 +40,15 @@ public class ReservationController {
     }
 
     @GetMapping("/{id}/store")
-    public String reg(@PathVariable Long id, String golfInfo_id,HttpSession session) {
-        memberService.access(id, session);
-        reservationService.reservation(Long.parseLong(golfInfo_id), id);
+    public String reservation(@PathVariable(value = "id") Long member_id, ReservationSaveRequestDto requestDto, HttpSession session) {
+        memberService.access(member_id, session);
+        reservationService.reservation(requestDto);
         return "redirect:/orders/{id}";
     }
 
-    @GetMapping("/{id}/{number}")
-    public String cancel(@PathVariable String number) {
-        reservationService.cancel(number);
+    @GetMapping("/{id}/{store_id}")
+    public String cancel(@PathVariable Long store_id) {
+        reservationService.cancel(store_id);
         return "redirect:/orders/{id}";
     }
 }

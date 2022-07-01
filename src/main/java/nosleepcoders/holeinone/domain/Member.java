@@ -3,8 +3,6 @@ package nosleepcoders.holeinone.domain;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
-import nosleepcoders.holeinone.dto.MemberUpdateDto;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
@@ -14,7 +12,6 @@ import javax.persistence.*;
  * 회원 엔티티 객체
  */
 @Getter
-@Setter
 @NoArgsConstructor
 @DynamicUpdate
 @DynamicInsert
@@ -56,11 +53,5 @@ public class Member {
         this.phone = phone;
         this.address = address;
         this.level = level;
-    }
-
-    public Member(MemberUpdateDto memberUpdateDto) {
-        this.name = memberUpdateDto.getName();
-        this.phone = memberUpdateDto.getPhone();
-        this.address = memberUpdateDto.getAddress();
     }
 }

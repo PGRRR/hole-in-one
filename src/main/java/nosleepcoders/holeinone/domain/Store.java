@@ -11,9 +11,7 @@ import javax.persistence.*;
  * 매장 엔티티 객체
  */
 @Getter
-@Setter
 @NoArgsConstructor
-@AllArgsConstructor
 @Entity(name = "stores")
 public class Store {
 

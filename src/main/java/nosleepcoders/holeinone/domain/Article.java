@@ -11,9 +11,7 @@ import javax.persistence.*;
  * 게시글 엔티티 객체
  */
 @Getter
-@Setter
 @NoArgsConstructor
-@AllArgsConstructor
 @Entity(name = "articles")
 public class Article {
 

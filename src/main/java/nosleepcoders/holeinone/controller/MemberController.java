@@ -1,7 +1,9 @@
 package nosleepcoders.holeinone.controller;
 
 import nosleepcoders.holeinone.domain.Member;
-import nosleepcoders.holeinone.dto.MemberUpdateDto;
+import nosleepcoders.holeinone.dto.MemberResponseDto;
+import nosleepcoders.holeinone.dto.MemberSaveRequestDto;
+import nosleepcoders.holeinone.dto.MemberUpdateRequestDto;
 import nosleepcoders.holeinone.repository.MemberRepository;
 import nosleepcoders.holeinone.service.MemberService;
 import org.springframework.http.ResponseEntity;
@@ -10,7 +12,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+
 import org.springframework.transaction.annotation.Transactional;
+
 import java.util.HashMap;
 import java.util.Optional;
 
@@ -19,11 +23,11 @@ import java.util.Optional;
 public class MemberController {
     private final MemberService memberService;
     private final MemberRepository memberRepository;
+
     public MemberController(MemberService memberService, MemberRepository memberRepository) {
         this.memberService = memberService;
         this.memberRepository = memberRepository;
     }
-
 
     /**
      * email 확인 POST 요청
@@ -52,7 +56,7 @@ public class MemberController {
     @PostMapping("/signIn")
     public String verify(String email, String password, HttpSession session, Model model) {
         try {
-            session.setAttribute("members", memberService.login(email, password).get()); // 로그인 검증
+            session.setAttribute("members", memberService.login(email, password));
             System.out.println("ALL PASS");
             return "redirect:/";
         } catch (IllegalStateException e) {
@@ -74,14 +78,14 @@ public class MemberController {
      * 회원 가입 POST 요청
      */
     @PostMapping("/signUp")
-    public String member(Member member, Model model) {
+    public String member(MemberSaveRequestDto memberSaveRequestDto, Model model) {
         try {
-            memberService.join(member);
+            memberService.join(memberSaveRequestDto);
             System.out.println("SAVE MEMBER");
             return "redirect:/";
         } catch (IllegalStateException e) {
             System.out.println("OVERLAP EMAIL FAIL");
-            model.addAttribute("email", member.getEmail());
+            model.addAttribute("email", memberSaveRequestDto.getEmail());
             model.addAttribute("verify", "fail");
             return "/member/signUp";
         }
@@ -93,9 +97,8 @@ public class MemberController {
     @GetMapping("/{id}/profile")
     public String myAccount(@PathVariable Long id, HttpSession session, Model model) {
         try {
-            Optional<Member> member = memberService.access(id, session);
-            MemberUpdateDto memberUpdateDto = MemberService.memberUpdateDto(member.get());
-            model.addAttribute("members", memberUpdateDto);
+            MemberResponseDto responseDto = memberService.access(id, session);
+            model.addAttribute("members", responseDto);
             model.addAttribute("update", "fail");
             return "/member/memberUpdate";
         } catch (IllegalStateException e) {
@@ -107,11 +110,11 @@ public class MemberController {
      * 개인 정보 수정 POST 요청
      */
     @PostMapping("/{id}/profile")
-    public String update(@PathVariable Long id, MemberUpdateDto memberUpdateDto, HttpSession session, Model model) {
+    public String update(@PathVariable Long id, MemberUpdateRequestDto memberUpdateRequestDto, HttpSession session, Model model) {
         try {
             memberService.access(id, session);
-            Member editedMember = memberService.edit(id, memberUpdateDto);
-            model.addAttribute("members", memberUpdateDto);
+            Member editedMember = memberService.edit(id, memberUpdateRequestDto);
+            model.addAttribute("members", memberUpdateRequestDto);
             model.addAttribute("update", "pass");
             session.removeAttribute("members");
             session.setAttribute("members", editedMember);

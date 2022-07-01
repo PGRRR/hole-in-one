@@ -1,7 +1,6 @@
 package nosleepcoders.holeinone.repository;
 
 import nosleepcoders.holeinone.domain.Member;
-import nosleepcoders.holeinone.dto.MemberUpdateDto;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;

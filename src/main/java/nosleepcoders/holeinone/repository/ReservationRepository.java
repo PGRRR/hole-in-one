@@ -13,7 +13,7 @@ public interface ReservationRepository {
 
     Reservation save(Reservation reservation);
 
-    String delete(String number);
+    void delete(Long number);
 
     Optional<Reservation> findById(Long id);
 

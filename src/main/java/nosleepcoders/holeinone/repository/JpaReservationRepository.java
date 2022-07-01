@@ -16,9 +16,7 @@ public class JpaReservationRepository implements ReservationRepository {
     }
 
     @Override
-    public String delete(String number) {
-        return null;
-    }
+    public void delete(Long number) {}
 
     @Override
     public Optional<Reservation> findById(Long id) {

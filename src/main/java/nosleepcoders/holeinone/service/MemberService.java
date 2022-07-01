@@ -4,12 +4,13 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import nosleepcoders.holeinone.domain.Member;
-import nosleepcoders.holeinone.dto.MemberUpdateDto;
+import nosleepcoders.holeinone.dto.MemberResponseDto;
+import nosleepcoders.holeinone.dto.MemberSaveRequestDto;
+import nosleepcoders.holeinone.dto.MemberUpdateRequestDto;
 import nosleepcoders.holeinone.repository.MemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.EntityNotFoundException;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.transaction.annotation.Transactional;
@@ -38,68 +39,63 @@ public class MemberService {
      * 회원 가입
      */
     @Transactional
-    public Long join(Member member) {
-        Optional<Member> byEmail = memberRepository.findByEmail(member.getEmail());// 중복 회원 검증
-        if (byEmail.isPresent()) {
-            System.out.println("DUPLICATE MEMBER");
-            throw new IllegalStateException("중복 회원");
-        }
+    public Long join(MemberSaveRequestDto requestDto) {
+        memberRepository.findByEmail(requestDto.getEmail())
+                .ifPresent((m) -> {
+                    throw new IllegalStateException("이미 존재하는 회원입니다. email=" + requestDto.getEmail());
+                });
         System.out.println("SAVE MEMBER");
-        memberRepository.save(member);
-        return member.getMember_id();
+        return memberRepository.save(requestDto.toEntity()).getMember_id();
     }
 
     /**
      * email 존재 여부 확인
      */
     @Transactional
-    public void emailCheck(String email) {
-        Optional<Member> member = memberRepository.findByEmail(email);
-        if (member.isEmpty()) { // email 확인 검증
-            System.out.println("EMAIL FAIL");
-            throw new IllegalStateException("존재하지 않는 이메일");
-        }
-        System.out.println("EMAIL PASS");
+    public Member emailCheck(String email) {
+        return memberRepository.findByEmail(email).orElseThrow(() -> new IllegalArgumentException("존재하지 않는 회원입니다."));
     }
 
     /**
      * 로그인
      */
     @Transactional
-    public Optional<Member> login(String email, String password) {
-        Optional<Member> member = memberRepository.findByEmail(email);
-        emailCheck(email);
-        if (!password.equals(member.get().getPassword())) { // 비밀번호 검증
-            System.out.println("PASSWORD FAIL");
-            throw new IllegalStateException("틀린 비밀번호");
+    public MemberResponseDto login(String email, String password) {
+        Member member = emailCheck(email);
+        MemberResponseDto responseDto = new MemberResponseDto(member);
+        if (!password.equals(member.getPassword())) {
+            System.out.println("PASSWORD FAILED");
+            throw new IllegalStateException("틀린 비밀번호입니다.");
         }
-        return member;
+        return responseDto;
     }
 
     /**
      * 개인 정보 접근 검증
      */
     @Transactional
-    public Optional<Member> access(Long id, HttpSession session) {
+    public MemberResponseDto access(Long id, HttpSession session) {
         Object sessionAttribute = session.getAttribute("members");
         if (sessionAttribute == null) {
-            throw new IllegalStateException("잘못된 접근");
+            throw new IllegalStateException("잘못된 접근입니다.");
         }
-        Member sessionMember = (Member) sessionAttribute;
+        MemberResponseDto sessionMember = (MemberResponseDto) sessionAttribute;
         if (!id.equals(sessionMember.getMember_id())) {
-            throw new IllegalStateException("잘못된 접근");
+            throw new IllegalStateException("잘못된 접근입니다.");
         }
-        return memberRepository.findByEmail(sessionMember.getEmail());
+        Member member = memberRepository.findByEmail(sessionMember.getEmail())
+                .orElseThrow(
+                        () -> new IllegalArgumentException("존재하지 않는 이메일입니다."));
+        return new MemberResponseDto(member);
     }
 
     /**
      * 개인 정보 수정
      */
     @Transactional
-    public Member edit(Long id, MemberUpdateDto memberUpdateDto) {
+    public Member edit(Long id, MemberUpdateRequestDto requestDto) {
         Member member = memberRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("해당하는 회원이 없습니다. id=" + id));
-        member.update(memberUpdateDto.getName(), memberUpdateDto.getPhone(), memberUpdateDto.getAddress());
-//        Member updatedMember = memberRepository.update(member);
+        member.update(requestDto.getName(), requestDto.getPhone(), requestDto.getAddress());
         System.out.println("UPDATE MEMBER");
         return member;
     }
@@ -199,7 +195,6 @@ public class MemberService {
             String email = kakao_account.getAsJsonObject().get("email").getAsString();
             String age = kakao_account.getAsJsonObject().get("age_range").getAsString();
 
-
             userInfo.put("nickname", nickname);
             userInfo.put("email", email);
             userInfo.put("age", age);
@@ -209,13 +204,6 @@ public class MemberService {
             e.printStackTrace();
         }
         return userInfo;
-    }
-
-    public static MemberUpdateDto memberUpdateDto(Member member) {
-        String name = member.getName();
-        String phone = member.getPhone();
-        String address = member.getAddress();
-        return new MemberUpdateDto(name, phone, address);
     }
 
     @Transactional
