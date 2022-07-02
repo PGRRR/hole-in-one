@@ -39,7 +39,7 @@
         <form class="email-form" action="/members/" method="post">
             <div class="input-text-group">
                 <input hidden="hidden"/>
-                <input class="input-text" type="text" name="email" placeholder="이메일"/>
+                <input class="input-text" type="text" name="email" maxlength="50" placeholder="이메일"/>
                 <div class="message">⚠️ 이메일이 필요합니다.</div>
             </div>
             <button class="btn-submit" id="email-btn" type="button" onclick="emailCheck();">계속</button>
@@ -53,10 +53,10 @@
             <div class="input-text-group">
                 <div th:if="${verify == 'fail'}"class="verify-message">⚠️ 이메일 또는 비밀번호가 틀렸습니다.</div>
                 <input hidden="hidden"/>
-                <input class="input-text" type="text" name="email" placeholder="이메일" th:value="${email}"/>
+                <input class="input-text" type="text" name="email" maxlength="50" placeholder="이메일" th:value="${email}"/>
                 <div class="message">⚠️ 이메일이 필요합니다.</div>
                 <input hidden="hidden"/>
-                <input class="input-text" type="password" name="password" placeholder="비밀번호"/>
+                <input class="input-text" type="password" name="password" maxlength="50" placeholder="비밀번호"/>
                 <div class="message">⚠️ 비밀번호를 입력해 주세요.</div>
             </div>
             <button class="btn-submit" type="button" onclick="passwordCheck();">로그인</button>

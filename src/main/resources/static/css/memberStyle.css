@@ -42,7 +42,15 @@ body {
    align-items: center;
    overflow: hidden;
 }
-
+.box {
+   width: 100vw;
+   height: 100vh;
+   background-color: #f1f0ec;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   overflow: hidden;
+}
 .login-box {
    display: flex;
    justify-content: center;
@@ -168,7 +176,7 @@ body {
    text-align: center;
 }
 .nav {
-   border: 0.5px solid rgba(202, 202, 202, 0.5);
+   border: 0.5px solid #cacaca80;
    width: 500px;
 }
 .order-table {
@@ -176,4 +184,53 @@ body {
 }
 .icon {
    margin-top: 20px;
+}
+.article-box {
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   flex-direction: column;
+   text-align: center;
+   width: 1000px;
+   height: 100vh;
+   background-color: white;
+   padding-left: 50px;
+   padding-right: 50px;
+}
+.article-table-header {
+   border-bottom: 1px solid black;
+}
+.article-table-title {
+   border-bottom: 1px solid #5d5d5d80;
+}
+thead > tr > th {
+   padding: 15px;
+}
+tbody > tr > td {
+   padding: 10px;
+}
+table {
+   margin: 10px;
+   width: 1000px;
+   border-collapse: collapse;
+   word-break: break-all;
+}
+.article-body-author {
+   width: 100px;
+}
+.article-body-title {
+   width: 600px;
+}
+.article-input-text {
+   font-family: "GmarketSansMedium";
+   width: 520px;
+   height: 520px;
+   color: #555;
+   font-size: 16px;
+   font-weight: 400;
+   margin-top: 15px;
+   display: block;
+   border: 1px solid #cacaca;
+   border-radius: 10px;
+   word-wrap: break-word;
 }

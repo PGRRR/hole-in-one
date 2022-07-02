@@ -3,9 +3,11 @@ package nosleepcoders.holeinone.dto;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import nosleepcoders.holeinone.domain.Reservation;
 
 @Getter
+@Setter
 @NoArgsConstructor
 public class ReservationSaveRequestDto {
     private Long reservation_price;

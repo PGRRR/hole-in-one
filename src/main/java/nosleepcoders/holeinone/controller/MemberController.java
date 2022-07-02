@@ -39,7 +39,7 @@ public class MemberController {
             model.addAttribute("email", email);
             model.addAttribute("verify", "pass");
             return "/member/signIn";
-        } catch (IllegalStateException e) {
+        } catch (IllegalArgumentException e) {
             model.addAttribute("email", email);
             return "/member/signUp";
         }
@@ -131,7 +131,7 @@ public class MemberController {
     }
 
     @GetMapping("/kakao")
-    public String kakao(@RequestParam(value = "code", required = false) String code) {
+    public String kakao(@RequestParam(value = "code", required = false) String code, HttpSession session) {
         System.out.println("###" + code);
         String access_Token = memberService.getAccessToken(code);
         HashMap<String, Object> userInfo = memberService.getUserInfo(access_Token);
@@ -140,7 +140,18 @@ public class MemberController {
         System.out.println("###email#### : " + userInfo.get("email"));
         System.out.println("###age#### : " + userInfo.get("age"));
         System.out.println("###id#### : " + userInfo.get("id"));
-        return "/index";
+        try {
+            session.setAttribute("members", memberService.login((String) userInfo.get("email"), String.valueOf(userInfo.get("id"))));
+            System.out.println("ALL PASS");
+            return "redirect:/";
+        } catch (IllegalArgumentException e) {
+            MemberSaveRequestDto memberSaveRequestDto = new MemberSaveRequestDto();
+            memberSaveRequestDto.setEmail((String) userInfo.get("email"));
+            memberSaveRequestDto.setName((String) userInfo.get("nickname"));
+            memberSaveRequestDto.setPassword(String.valueOf(userInfo.get("id")));
+            memberService.join(memberSaveRequestDto);
+            return "redirect:/";
+        }
     }
 
     @Transactional

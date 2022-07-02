@@ -1,22 +1,23 @@
 package nosleepcoders.holeinone.dto;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import nosleepcoders.holeinone.domain.Member;
 
 @Getter
+@Setter
 @NoArgsConstructor
 public class MemberSaveRequestDto {
     private String email;
     private String password;
+    private String name;
     private String phone;
     private String address;
 
     @Builder
-    public MemberSaveRequestDto(String email, String password, String phone, String address) {
+    public MemberSaveRequestDto(String email, String password, String name, String phone, String address) {
         this.email = email;
         this.password = password;
+        this.name = name;
         this.phone = phone;
         this.address = address;
     }
@@ -26,6 +27,7 @@ public class MemberSaveRequestDto {
         return Member.builder()
                 .email(email)
                 .password(password)
+                .name(name)
                 .phone(phone)
                 .address(address)
                 .build();
