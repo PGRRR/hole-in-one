@@ -3,26 +3,28 @@
 <head>
     <meta charset="UTF-8"/>
     <title>글 제목 | Hole in One</title>
-    <link rel="icon" href="/img/hole-in-one-1280.png" />
+    <link rel="icon" href="/img/hole-in-one-1280.png"/>
     <link rel="stylesheet" href="/css/memberStyle.css"/>
 </head>
 <body>
-<div class="login-box">
-    <div class="login-title">커뮤니티</div>
-    <div class="nav"></div>
-    <form class="email-form" th:action="@{'/articles/'+${session.members.member_id}+'/post'}" method="post">
-        <div class="login-text">글 등록</div>
+<div class="box">
+    <div class="article-box">
+        <div class="login-title">커뮤니티</div>
         <div class="nav"></div>
-        <div class="member">
-            <div class="input-text-group">
-                <input class="input-text" type="text" name="title" placeholder="글 제목"/>
-                <input class="input-text" type="text" name="text" placeholder="본문"/>
-                <div class="message">⚠️ 본문이 필요합니다.</div>
+        <form class="email-form" th:action="@{'/articles/'+${session.members.member_id}+'/post'}" method="post">
+            <div class="login-text">글 등록</div>
+            <div class="nav"></div>
+            <div class="member">
+                <div class="input-text-group">
+                    <input class="input-text" type="text" name="article_title" maxlength="50" placeholder="글 제목"/>
+                    <textarea class="article-input-text" name="article_text" rows="4" cols="50" placeholder="본문 글 작성"></textarea>
+                    <div class="message">⚠️ 본문이 필요합니다.</div>
+                </div>
+                <button class="btn-submit" id="email-btn" type="submit">등록</button>
             </div>
-            <button class="btn-submit" id="email-btn" type="submit">게시</button>
-        </div>
-    </form>
-    <button class="btn-home" onclick="location.href='/'" type="button">홈으로 돌아가기</button>
+        </form>
+        <button class="btn-home" onclick="location.href='/articles'" type="button">취소</button>
+    </div>
 </div>
 <script src="/js/app.js"></script>
 </body>

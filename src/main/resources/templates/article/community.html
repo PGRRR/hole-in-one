@@ -3,25 +3,45 @@
 <head>
     <meta charset="UTF-8"/>
     <title>커뮤니티 | Hole in One</title>
-    <link rel="icon" href="/img/hole-in-one-1280.png" />
+    <link rel="icon" href="/img/hole-in-one-1280.png"/>
     <link rel="stylesheet" href="/css/memberStyle.css"/>
 </head>
 <body>
-<div class="login-box">
-    <div class="login-title">커뮤니티</div>
-    <div class="nav"></div>
-    <div class="login-text">게시글</div>
-    <div class="nav"></div>
-    <div class="member">
-        <div th:each="article:${articleList}">
-            <a th:href="@{'/articles/view/'+${article.article_id}}">
-                <div th:text="${article.title}" class="article-title">글 목록 제목</div>
+<div class="box">
+    <div class="article-box">
+        <div class="login-title">커뮤니티</div>
+        <div class="nav"></div>
+        <div class="login-text">게시글</div>
+        <div class="nav"></div>
+        <div class="member">
+            <table class="article-table">
+                <thead>
+                <tr class="article-table-header">
+                    <th>번호</th>
+                    <th>제목</th>
+                    <th>글쓴이</th>
+                    <th>작성일</th>
+                    <th>조회</th>
+                    <th>추천</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="article:${articleList}" class="article-table-title">
+                    <td th:text="${article.article_id}">번호</td>
+                    <td class="article-body-title"><a th:href="@{'/articles/view/'+${article.article_id}}"
+                           th:text="${article.article_title}">제목</a></td>
+                    <td class="article-body-author" th:text="${article.member.name}">글쓴이</td>
+                    <td>작성일</td>
+                    <td>조회</td>
+                    <td th:text="${article.article_like}">추천</td>
+                </tr>
+                </tbody>
+            </table>
+            <a th:if="${session.members != null}" th:href="@{'/articles/'+${session.members.member_id}+'/post'}">
+                <button class="btn-submit" type="button">글 작성</button>
             </a>
+            <button class="btn-home" onclick="location.href='/'" type="button">홈으로 돌아가기</button>
         </div>
-        <a th:if="${session.members != null}" th:href="@{'/articles/'+${session.members.member_id}+'/post'}">
-            <button class="btn-submit" type="button">글 작성</button>
-        </a>
-        <button class="btn-home" onclick="location.href='/'" type="button">홈으로 돌아가기</button>
     </div>
 </div>
 <script src="/js/app.js"></script>

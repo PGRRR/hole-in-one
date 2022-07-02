@@ -1,14 +1,17 @@
 package nosleepcoders.holeinone.controller;
 
 import nosleepcoders.holeinone.domain.Article;
+import nosleepcoders.holeinone.dto.ArticleSaveRequestDto;
 import nosleepcoders.holeinone.service.ArticleService;
 import nosleepcoders.holeinone.service.MemberService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
 import javax.servlet.http.HttpSession;
 import java.util.List;
 import java.util.Optional;
@@ -19,6 +22,7 @@ public class ArticleController {
     private final MemberService memberService;
     private final ArticleService articleService;
 
+    @Autowired
     public ArticleController(MemberService memberService, ArticleService articleService) {
         this.memberService = memberService;
         this.articleService = articleService;
@@ -42,15 +46,11 @@ public class ArticleController {
     }
 
     @PostMapping("/{id}/post")
-    public String post(@PathVariable Long id, HttpSession session, Article article) {
-        try {
-            memberService.access(id, session);
-            article.setMember_id(id);
-            articleService.post(article);
-            return "redirect:/articles";
-        } catch (Exception e) {
-            return "redirect:/articles";
-        }
+    public String post(@PathVariable(value = "id") Long member_id, HttpSession session, ArticleSaveRequestDto requestDto) {
+        memberService.access(member_id, session);
+        requestDto.setMember_id(member_id);
+        articleService.post(requestDto);
+        return "redirect:/articles";
     }
 
     @GetMapping("/view/{id}")
@@ -61,10 +61,8 @@ public class ArticleController {
     }
 
     @GetMapping("/{member_id}/{article_id}")
-    public String delete(@PathVariable Long member_id, @PathVariable Long article_id, Article article) {
-        article.setArticle_id(article_id);
-        article.setMember_id(member_id);
-        articleService.delete(article);
+    public String delete(@PathVariable Long member_id, @PathVariable Long article_id) {
+        articleService.delete(article_id, member_id);
         return "redirect:/articles";
     }
 }
