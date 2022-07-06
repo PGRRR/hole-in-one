@@ -19,6 +19,10 @@ public class JpaMemberRepository implements MemberRepository {
         return member;
     }
 
+    public void delete(Member member) {
+        em.remove(Member.class);
+    }
+
     @Override
     public Optional<Member> findById(Long id) {
         Member member = em.find(Member.class, id);

@@ -154,6 +154,17 @@ public class MemberController {
         }
     }
 
+    @GetMapping("/withdraw/{id}")
+    public String withdraw() {
+        return "/member/memberWithdraw";
+    }
+    @PostMapping("/withdraw/{id}")
+    public String delete(MemberSaveRequestDto memberSaveRequestDto, Model model) {
+        member(memberSaveRequestDto, model);
+        memberService.withdraw(memberSaveRequestDto);
+        return "/member/memberWithdraw";
+    }
+
     @Transactional
     @GetMapping("/test")
     public ResponseEntity<Member> test(Member member) {

@@ -205,7 +205,8 @@ public class MemberService {
         }
         return userInfo;
     }
-
+    @Transactional
+    public void withdraw(MemberSaveRequestDto requestDto){memberRepository.delete(requestDto.toEntity());}
     @Transactional
     public List<Member> findMembers() {
         return memberRepository.findAll();

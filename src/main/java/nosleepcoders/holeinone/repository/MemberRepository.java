@@ -17,4 +17,6 @@ public interface MemberRepository {
     Optional<Member> findByEmail(String email);
 
     List<Member> findAll();
+
+    void delete(Member member);
 }
