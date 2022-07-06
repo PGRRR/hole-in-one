@@ -1,6 +1,7 @@
 let inputText = document.querySelectorAll(".input-text");
 let warningMessage = document.querySelectorAll(".message");
 let submitBtn = document.querySelector(".btn-submit");
+
 let popup = {
   timer: 500,
   alert: function (txt) {
