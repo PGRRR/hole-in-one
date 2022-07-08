@@ -1,20 +1,39 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-   <head>
-      <meta charset="UTF-8" />
-      <title>골프 예약 서비스 | Hole in One</title>
-      <link rel="icon" href="/img/hole-in-one-1280.png" />
-      <link rel="stylesheet" href="/css/memberStyle.css" />
-   </head>
-   <body>
-      <div class="map-box">
-         <div class="main-nav"></div>
-         <div id="map" style="width: 2000px; height: 100vh"></div>
-         <script
+<head>
+    <meta charset="UTF-8"/>
+    <title>골프 예약 서비스 | Hole in One</title>
+    <link rel="icon" href="/img/hole-in-one-1280.png"/>
+    <link rel="stylesheet" href="/css/memberStyle.css"/>
+</head>
+<body>
+<div class="map-box">
+    <div class="main-nav"></div>
+    <div id="map" style="width: 2000px; height: 100vh"></div>
+    <script
             type="text/javascript"
             src="//dapi.kakao.com/v2/maps/sdk.js?appkey=1493d0a48da5ab2a74b11985cb0651f5"
-         ></script>
-         <script>
+    ></script>
+    <script>
+         var latitude;
+         var longitude;
+    function getLocation() {
+  if (navigator.geolocation) { // GPS를 지원하면
+    navigator.geolocation.getCurrentPosition(function(position) {
+      latitude = position.coords.latitude;
+      longitude = position.coords.longitude;
+    }, function(error) {
+      console.error(error);
+    }, {
+      enableHighAccuracy: false,
+      maximumAge: 0,
+      timeout: Infinity
+    });
+  } else {
+    alert('GPS를 지원하지 않습니다');
+  }
+}
+getLocation();
             // 장소명 인포 윈도우
             var infowindow = new kakao.maps.InfoWindow({
                zIndex: 1,
@@ -29,74 +48,78 @@
                   level: 3, // 지도의 확대 레벨
                };
             var map = new kakao.maps.Map(mapContainer, mapOption);
-         </script>
-      </div>
 
-      <div class="login-box">
-         <img
+
+
+    </script>
+</div>
+
+<div class="login-box">
+    <img
             class="icon"
             src="/img/hole-in-one-1280.png"
             style="height: 120px"
-         />
-         <div class="login-title">골프 예약 서비스</div>
-         <div class="nav"></div>
-         <div th:if="${session.members != null}" th:text="'안녕하세요. '+${session.members.name}+' 님'" class="login-text">안녕하세요.</div>
-         <div class="login-text">Hole in One에 오신 것을 환영합니다.</div>
-         <div class="member">
-            <a th:if="${session.members != null}" href="/shops">
-               <button class="btn-submit" type="button">
-                  스크린 골프 예약
-               </button>
-            </a>
-            <button
-               class="btn-submit"
-               onclick="location.href='/articles'"
-               type="button"
-            >
-               커뮤니티
+    />
+    <div class="login-title">골프 예약 서비스</div>
+    <div class="nav"></div>
+    <div th:if="${session.members != null}" th:text="'안녕하세요. '+${session.members.name}+' 님'" class="login-text">안녕하세요.
+    </div>
+    <div class="login-text">Hole in One에 오신 것을 환영합니다.</div>
+    <div class="member">
+        <a th:if="${session.members != null}" href="/shops">
+            <button class="btn-submit" type="button">
+                스크린 골프 예약
             </button>
-            <a
-               th:if="${session.members != null}"
-               th:href="@{'/members/'+${session.members.member_id}+'/profile'}"
-            >
-               <button class="btn-submit" type="button">내 계정</button>
-            </a>
-            <button
-               th:if="${session.members == null}"
-               class="btn-submit"
-               onclick="location.href='/members/signIn'"
-               type="button"
-            >
-               로그인 또는 회원 가입
-            </button>
-            <button
-               th:if="${session.members == null}"
-               id="kakao"
-               class="btn-submit"
-               onclick="location.href='https://kauth.kakao.com/oauth/authorize?client_id=5859443def9b6affce697eeb663074dc&redirect_uri=http://localhost:3080/members/kakao&response_type=code'"
-               type="button"
-            >
+        </a>
+        <button
+                class="btn-submit"
+                onclick="location.href='/articles'"
+                type="button"
+        >
+            커뮤니티
+        </button>
+        <a
+                th:if="${session.members != null}"
+                th:href="@{'/members/'+${session.members.member_id}+'/profile'}"
+        >
+            <button class="btn-submit" type="button">내 계정</button>
+        </a>
+        <button
+                th:if="${session.members == null}"
+                class="btn-submit"
+                onclick="location.href='/members/signIn'"
+                type="button"
+        >
+            로그인 또는 회원 가입
+        </button>
+        <button
+                th:if="${session.members == null}"
+                id="kakao"
+                class="btn-submit"
+                onclick="location.href='https://kauth.kakao.com/oauth/authorize?client_id=5859443def9b6affce697eeb663074dc&redirect_uri=http://localhost:3080/members/kakao&response_type=code'"
+                type="button"
+        >
                <span class="inner-kakao">
                   <img
-                     src="https://www.svgrepo.com/show/368252/kakao.svg"
-                     class="kakao-button-img"
-                     width="24"
-                     height="24"
-                     alt="kakao"
+                          src="https://www.svgrepo.com/show/368252/kakao.svg"
+                          class="kakao-button-img"
+                          width="24"
+                          height="24"
+                          alt="kakao"
                   />
                   <span>카카오 로그인</span>
                </span>
-            </button>
-            <button
-               th:if="${session.members != null}"
-               class="btn-home"
-               onclick="location.href='/members/signOut'"
-               type="button"
-            >
-               로그아웃
-            </button>
-         </div>
-      </div>
-      <script src="/js/app.js"></script>
-   </body>
+        </button>
+        <button
+                th:if="${session.members != null}"
+                class="btn-home"
+                onclick="location.href='/members/signOut'"
+                type="button"
+        >
+            로그아웃
+        </button>
+    </div>
+</div>
+<script src="/js/app.js"></script>
+</body>
 </html>
