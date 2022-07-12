@@ -16,7 +16,6 @@ import javax.servlet.http.HttpSession;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashMap;
-import java.util.Optional;
 
 @Controller
 @RequestMapping("/members")
@@ -28,6 +27,11 @@ public class MemberController {
         this.memberService = memberService;
         this.memberRepository = memberRepository;
     }
+
+//    @ExceptionHandler(Exception.class)
+//    public String catcher(Exception ex) {
+//        return "/handler/memberError";
+//    }
 
     /**
      * email 확인 POST 요청
