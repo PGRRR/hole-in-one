@@ -29,7 +29,6 @@
                   level: 3, // 지도의 확대 레벨
                };
             var map = new kakao.maps.Map(mapContainer, mapOption);
-
     </script>
 </div>
 <div class="login-box">
@@ -60,9 +59,12 @@
             </div>
             <button class="btn-submit" type="button" onclick="updateCheck();">회원 정보 수정</button>
         </form>
+        <a th:href="@{'/members/withdraw/'+${session.members.member_id}}">
+            <button class="btn-home" type="button">서비스 탈퇴하기</button>
+        </a>
         <button class="btn-home" onclick="location.href='/'" type="button">홈으로 돌아가기</button>
     </div>
-<div th:if="${update == 'pass'}" class="snack-bar">변경 사항이 저장되었습니다.</div>
+    <div th:if="${update == 'pass'}" class="snack-bar">변경 사항이 저장되었습니다.</div>
 </div>
 
 <script src="/js/app.js"></script>
