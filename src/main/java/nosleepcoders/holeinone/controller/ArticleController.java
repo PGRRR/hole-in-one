@@ -1,5 +1,6 @@
 package nosleepcoders.holeinone.controller;
 
+import nosleepcoders.holeinone.annotation.MemberSignInCheck;
 import nosleepcoders.holeinone.domain.Article;
 import nosleepcoders.holeinone.dto.ArticleSaveRequestDto;
 import nosleepcoders.holeinone.service.ArticleService;
@@ -35,6 +36,7 @@ public class ArticleController {
         return "/article/community";
     }
 
+    @MemberSignInCheck
     @GetMapping("/{id}/post")
     public String post(@PathVariable Long id, HttpSession session) {
         try {
@@ -44,7 +46,7 @@ public class ArticleController {
             return "redirect:/articles";
         }
     }
-
+    @MemberSignInCheck
     @PostMapping("/{id}/post")
     public String post(@PathVariable(value = "id") Long member_id, HttpSession session, ArticleSaveRequestDto requestDto) {
         memberService.access(member_id, session);
@@ -59,7 +61,7 @@ public class ArticleController {
         model.addAttribute("article", article.get());
         return "/article/view";
     }
-
+    @MemberSignInCheck
     @GetMapping("/{member_id}/{article_id}")
     public String delete(@PathVariable Long member_id, @PathVariable Long article_id) {
         articleService.delete(article_id, member_id);

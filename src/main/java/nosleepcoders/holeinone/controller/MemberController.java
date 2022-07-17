@@ -1,5 +1,6 @@
 package nosleepcoders.holeinone.controller;
 
+import nosleepcoders.holeinone.annotation.MemberSignInCheck;
 import nosleepcoders.holeinone.domain.Member;
 import nosleepcoders.holeinone.dto.MemberResponseDto;
 import nosleepcoders.holeinone.dto.MemberSaveRequestDto;
@@ -94,6 +95,7 @@ public class MemberController {
     /**
      * 개인 정보 GET 요청
      */
+    @MemberSignInCheck
     @GetMapping("/{id}/profile")
     public String myAccount(@PathVariable Long id, HttpSession session, Model model) {
         try {
@@ -109,6 +111,7 @@ public class MemberController {
     /**
      * 개인 정보 수정 POST 요청
      */
+    @MemberSignInCheck
     @PostMapping("/{id}/profile")
     public String update(@PathVariable Long id, MemberUpdateRequestDto memberUpdateRequestDto, HttpSession session, Model model) {
         try {
@@ -158,6 +161,7 @@ public class MemberController {
     public String withdraw() {
         return "/member/memberWithdraw";
     }
+    @MemberSignInCheck
     @PostMapping("/withdraw/{id}")
     public String delete(MemberSaveRequestDto memberSaveRequestDto, Model model) {
         member(memberSaveRequestDto, model);

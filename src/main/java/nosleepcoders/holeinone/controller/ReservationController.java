@@ -1,5 +1,6 @@
 package nosleepcoders.holeinone.controller;
 
+import nosleepcoders.holeinone.annotation.MemberSignInCheck;
 import nosleepcoders.holeinone.domain.Reservation;
 import nosleepcoders.holeinone.dto.ReservationSaveRequestDto;
 import nosleepcoders.holeinone.service.MemberService;
@@ -26,7 +27,7 @@ public class ReservationController {
         this.reservationService = reservationService;
         this.memberService = memberService;
     }
-
+    @MemberSignInCheck
     @GetMapping("/{id}")
     public String list(@PathVariable(value = "id") Long member_id, HttpSession session, Model model) {
         try {
@@ -38,14 +39,14 @@ public class ReservationController {
             return "redirect:/";
         }
     }
-
+    @MemberSignInCheck
     @GetMapping("/{id}/store")
     public String reservation(@PathVariable(value = "id") Long member_id, ReservationSaveRequestDto requestDto, HttpSession session) {
         memberService.access(member_id, session);
         reservationService.reservation(requestDto);
         return "redirect:/orders/{id}";
     }
-
+    @MemberSignInCheck
     @GetMapping("/{id}/{store_id}")
     public String cancel(@PathVariable Long store_id) {
         reservationService.cancel(store_id);
