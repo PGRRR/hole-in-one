@@ -1,5 +1,6 @@
 package nosleepcoders.holeinone.service;
 
+import lombok.RequiredArgsConstructor;
 import nosleepcoders.holeinone.domain.Article;
 import nosleepcoders.holeinone.dto.ArticleSaveRequestDto;
 import nosleepcoders.holeinone.repository.ArticleRepository;
@@ -19,15 +20,11 @@ import static org.springframework.data.domain.Sort.Direction.ASC;
 /**
  * 게시글 서비스 개발
  */
-@Transactional(readOnly = true)
 @Service
+@RequiredArgsConstructor
+@Transactional(readOnly = true)
 public class ArticleService {
     private final ArticleRepository articleRepository;
-
-    @Autowired
-    public ArticleService(ArticleRepository articleRepository) {
-        this.articleRepository = articleRepository;
-    }
 
     @Transactional
     public void post(ArticleSaveRequestDto requestDto) {

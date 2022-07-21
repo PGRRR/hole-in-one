@@ -1,5 +1,6 @@
 package nosleepcoders.holeinone.service;
 
+import lombok.RequiredArgsConstructor;
 import nosleepcoders.holeinone.domain.Reservation;
 import nosleepcoders.holeinone.dto.ReservationSaveRequestDto;
 import nosleepcoders.holeinone.repository.ReservationRepository;
@@ -8,14 +9,12 @@ import org.springframework.stereotype.Service;
 
 import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
-@Transactional(readOnly = true)
 @Service
+@RequiredArgsConstructor
+@Transactional(readOnly = true)
 public class ReservationService {
     private final ReservationRepository reservationRepository;
-    @Autowired
-    public ReservationService(ReservationRepository reservationRepository) {
-        this.reservationRepository = reservationRepository;
-    }
+
     @Transactional
     public Long reservation(ReservationSaveRequestDto requestDto) {
         return reservationRepository.save(requestDto.toEntity()).getReservation_id();

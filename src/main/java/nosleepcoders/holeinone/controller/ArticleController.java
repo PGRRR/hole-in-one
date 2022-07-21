@@ -1,5 +1,6 @@
 package nosleepcoders.holeinone.controller;
 
+import lombok.RequiredArgsConstructor;
 import nosleepcoders.holeinone.annotation.MemberSignInCheck;
 import nosleepcoders.holeinone.domain.Article;
 import nosleepcoders.holeinone.dto.ArticleSaveRequestDto;
@@ -18,16 +19,11 @@ import java.util.List;
 import java.util.Optional;
 
 @Controller
+@RequiredArgsConstructor
 @RequestMapping("/articles")
 public class ArticleController {
     private final MemberService memberService;
     private final ArticleService articleService;
-
-    @Autowired
-    public ArticleController(MemberService memberService, ArticleService articleService) {
-        this.memberService = memberService;
-        this.articleService = articleService;
-    }
 
     @GetMapping("")
     public String community(Model model) {

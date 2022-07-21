@@ -1,5 +1,6 @@
 package nosleepcoders.holeinone.controller;
 
+import lombok.RequiredArgsConstructor;
 import nosleepcoders.holeinone.annotation.MemberSignInCheck;
 import nosleepcoders.holeinone.domain.Member;
 import nosleepcoders.holeinone.dto.MemberResponseDto;
@@ -19,15 +20,11 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.HashMap;
 
 @Controller
+@RequiredArgsConstructor
 @RequestMapping("/members")
 public class MemberController {
     private final MemberService memberService;
     private final MemberRepository memberRepository;
-
-    public MemberController(MemberService memberService, MemberRepository memberRepository) {
-        this.memberService = memberService;
-        this.memberRepository = memberRepository;
-    }
 
 //    @ExceptionHandler(Exception.class)
 //    public String catcher(Exception ex) {

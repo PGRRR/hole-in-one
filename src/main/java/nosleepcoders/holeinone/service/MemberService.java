@@ -3,6 +3,7 @@ package nosleepcoders.holeinone.service;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import lombok.RequiredArgsConstructor;
 import nosleepcoders.holeinone.domain.Member;
 import nosleepcoders.holeinone.dto.MemberResponseDto;
 import nosleepcoders.holeinone.dto.MemberSaveRequestDto;
@@ -25,15 +26,11 @@ import java.util.Optional;
 /**
  * 회원 서비스 개발
  */
-@Transactional(readOnly = true)
 @Service
+@RequiredArgsConstructor
+@Transactional(readOnly = true)
 public class MemberService {
     private final MemberRepository memberRepository;
-
-    @Autowired
-    public MemberService(MemberRepository memberRepository) {
-        this.memberRepository = memberRepository;
-    }
 
     /**
      * 회원 가입

@@ -1,5 +1,6 @@
 package nosleepcoders.holeinone.controller;
 
+import lombok.RequiredArgsConstructor;
 import nosleepcoders.holeinone.annotation.MemberSignInCheck;
 import nosleepcoders.holeinone.domain.Reservation;
 import nosleepcoders.holeinone.dto.ReservationSaveRequestDto;
@@ -16,17 +17,13 @@ import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
+@RequiredArgsConstructor
 @RequestMapping("/orders")
 public class ReservationController {
 
     private final MemberService memberService;
     private final ReservationService reservationService;
 
-    @Autowired
-    public ReservationController(ReservationService reservationService, MemberService memberService) {
-        this.reservationService = reservationService;
-        this.memberService = memberService;
-    }
     @MemberSignInCheck
     @GetMapping("/{id}")
     public String list(@PathVariable(value = "id") Long member_id, HttpSession session, Model model) {
