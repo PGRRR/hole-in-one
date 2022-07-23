@@ -1,8 +1,8 @@
 //package nosleepcoders.holeinone.service;
 //
 //<<<<<<<< HEAD:src/test/java/nosleepcoders/holeinone/service/MemberServiceIntegrationTest.java
-//import nosleepcoders.holeinone.domain.Member;
-//import nosleepcoders.holeinone.repository.MemberRepository;
+//import nosleepcoders.holeinone.member.domain.Member;
+//import nosleepcoders.holeinone.member.repository.MemberRepository;
 //========
 //import nosleepcoders.holeinonejdbc.domain.Members;
 //import nosleepcoders.holeinonejdbc.repository.MemberRepository;

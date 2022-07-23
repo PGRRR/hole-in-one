@@ -1,6 +1,6 @@
 package nosleepcoders.holeinone.aop;
 
-import nosleepcoders.holeinone.service.MemberService;
+import nosleepcoders.holeinone.member.service.MemberService;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.springframework.stereotype.Component;

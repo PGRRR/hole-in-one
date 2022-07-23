@@ -1,6 +1,6 @@
 //package nosleepcoders.holeinone.service;
 //
-//import nosleepcoders.holeinone.domain.Member;
+//import nosleepcoders.holeinone.member.domain.Member;
 //import org.assertj.core.api.Assertions;
 //import org.junit.jupiter.api.Test;
 //

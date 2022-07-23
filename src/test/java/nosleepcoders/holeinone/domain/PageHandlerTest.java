@@ -1,5 +1,6 @@
 package nosleepcoders.holeinone.domain;
 
+import nosleepcoders.holeinone.article.domain.PageHandler;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
